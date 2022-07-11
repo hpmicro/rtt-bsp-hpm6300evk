@@ -1,11 +1,12 @@
 /*
- * Copyright (c) 2021 hpm
+ * Copyright (c) 2021 - 2022 hpmicro
  *
  * SPDX-License-Identifier: BSD-3-Clause
  *
  * Change Logs:
  * Date         Author      Notes
- * 2022-01-11   hpm     First version
+ * 2022-01-11   hpmicro     First version
+ * 2022-07-10   hpmicro     Driver optimization for multiple instances 
  */
 
 #include <rtdevice.h>

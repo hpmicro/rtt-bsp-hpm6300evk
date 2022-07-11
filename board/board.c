@@ -189,29 +189,12 @@ uint32_t board_init_dram_clock(void)
 
 void board_delay_us(uint32_t us)
 {
-    static uint32_t gptmr_freq;
-    gptmr_channel_config_t config;
-
-    if (init_delay_flag == false) {
-        init_delay_flag = true;
-        clock_add_to_group(BOARD_DELAY_TIMER_CLK_NAME, 0);
-        gptmr_freq = clock_get_frequency(BOARD_DELAY_TIMER_CLK_NAME);
-        gptmr_channel_get_default_config(BOARD_DELAY_TIMER, &config);
-        gptmr_channel_config(BOARD_DELAY_TIMER, BOARD_DELAY_TIMER_CH, &config, false);
-    }
-
-    gptmr_channel_config_update_reload(BOARD_DELAY_TIMER, BOARD_DELAY_TIMER_CH, gptmr_freq / 1000000 * us);
-    gptmr_start_counter(BOARD_DELAY_TIMER, BOARD_DELAY_TIMER_CH);
-    while (!gptmr_check_status(BOARD_DELAY_TIMER, GPTMR_CH_RLD_STAT_MASK(BOARD_DELAY_TIMER_CH))) {
-        __asm("nop");
-    }
-    gptmr_stop_counter(BOARD_DELAY_TIMER, BOARD_DELAY_TIMER_CH);
-    gptmr_clear_status(BOARD_DELAY_TIMER, GPTMR_CH_RLD_STAT_MASK(BOARD_DELAY_TIMER_CH));
+    clock_cpu_delay_us(us);
 }
 
 void board_delay_ms(uint32_t ms)
 {
-    board_delay_us(1000 * ms);
+    clock_cpu_delay_ms(ms);
 }
 
 void board_timer_isr(void)
@@ -342,6 +325,7 @@ void board_init_pmp(void)
 void board_init_clock(void)
 {
     uint32_t cpu0_freq = clock_get_frequency(clock_cpu0);
+    hpm_core_clock = cpu0_freq;
     if (cpu0_freq == PLLCTL_SOC_PLL_REFCLK_FREQ) {
         /* Configure the External OSC ramp-up time: ~9ms */
         pllctlv2_xtal_set_rampup_time(HPM_PLLCTLV2, 32UL * 1000UL * 9U);
@@ -424,19 +408,19 @@ uint32_t board_init_adc12_clock(ADC16_Type *ptr)
     switch ((uint32_t) ptr) {
     case HPM_ADC0_BASE:
         /* Configure the ADC clock to 200MHz */
-        clock_set_adc_source(clock_adc0, clk_adc_src_ana0);
+        clock_set_adc_source(clock_adc0, clk_adc_src_ana);
         clock_set_source_divider(clock_ana0, clk_src_pll1_clk1, 2U);
         freq = clock_get_frequency(clock_adc0);
         break;
     case HPM_ADC1_BASE:
         /* Configure the ADC clock to 200MHz */
-        clock_set_adc_source(clock_adc1, clk_adc_src_ana0);
+        clock_set_adc_source(clock_adc1, clk_adc_src_ana);
         clock_set_source_divider(clock_ana0, clk_src_pll1_clk1, 2U);
         freq = clock_get_frequency(clock_adc1);
         break;
     case HPM_ADC2_BASE:
         /* Configure the ADC clock to 200MHz */
-        clock_set_adc_source(clock_adc2, clk_adc_src_ana0);
+        clock_set_adc_source(clock_adc2, clk_adc_src_ana);
         clock_set_source_divider(clock_ana0, clk_src_pll1_clk1, 2U);
         freq = clock_get_frequency(clock_adc2);
         break;
@@ -475,10 +459,10 @@ uint32_t board_init_dac_clock(DAC_Type *ptr, bool clk_src_ahb)
     if (ptr == HPM_DAC) {
         if (clk_src_ahb == true) {
             /* Configure the DAC clock to 133MHz */
-            clock_set_dac_source(clock_dac0, clk_dac_src_ahb0);
+            clock_set_dac_source(clock_dac0, clk_dac_src_ahb);
         } else {
             /* Configure the DAC clock to 166MHz */
-            clock_set_dac_source(clock_dac0, clk_dac_src_ana3);
+            clock_set_dac_source(clock_dac0, clk_dac_src_ana);
             clock_set_source_divider(clock_ana3, clk_src_pll0_clk1, 2);
         }
 

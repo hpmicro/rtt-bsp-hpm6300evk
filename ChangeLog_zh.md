@@ -1,5 +1,12 @@
 # 更新
 
+## 0.7.0
+- 整合了SDK v0.12.1
+  - 注：
+    - SDK根目录下的doc, middleware,samples,cmake 目录被删除
+- 修复了如下问题：
+  - sd 卡 multi-block read/write 问题
+
 ## v0.6.0
 
 - 整合了SDK v0.11.0

@@ -5,7 +5,8 @@
  *
  * Change Logs:
  * Date         Author      Notes
- * 2022-01-11   hpm     First version
+ * 2022-01-11   hpmicro     First version
+ * 2022-07-28   hpmicro     Fixed compiling warnings
  */
 
 #include <rtthread.h>
@@ -75,7 +76,6 @@ static int hpm_get_gpi_irq_num(uint32_t gpio_idx)
 static void hpm_gpio_isr(uint32_t gpio_index, GPIO_Type *base)
 {
     uint32_t pin_idx = 0;
-    uint32_t isr_status = gpio_get_port_interrupt_flags(base, gpio_index);
     for(pin_idx = 0; pin_idx < 32; pin_idx++)
     {
         if (gpio_check_pin_interrupt_flag(base, gpio_index, pin_idx))
@@ -234,9 +234,6 @@ static void hpm_pin_write(rt_device_t dev, rt_base_t pin, rt_base_t value)
 static rt_err_t hpm_pin_attach_irq(struct rt_device *device, rt_int32_t pin, rt_uint32_t mode,
         void (*hdr)(void *args), void *args)
 {
-    /* TODO: Check the validity of the pin value */
-    uint32_t gpio_idx = pin >> 5;
-    uint32_t pin_idx = pin & 0x1FU;
 
     rt_base_t level;
     level = rt_hw_interrupt_disable();
@@ -251,10 +248,6 @@ static rt_err_t hpm_pin_attach_irq(struct rt_device *device, rt_int32_t pin, rt_
 
 static rt_err_t hpm_pin_detach_irq(struct rt_device *device, rt_int32_t pin)
 {
-    /* TODO: Check the validity of the pin value */
-    uint32_t gpio_idx = pin >> 5;
-    uint32_t pin_idx = pin & 0x1FU;
-
     rt_base_t level;
     level = rt_hw_interrupt_disable();
     hpm_gpio_pin_hdr_tbl[pin].pin = -1;

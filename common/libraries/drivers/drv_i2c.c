@@ -13,6 +13,8 @@
 #include "hpm_i2c_drv.h"
 #include "board.h"
 
+#ifdef RT_USING_I2C
+
 struct hpm_i2c
 {
     struct rt_i2c_bus_device bus;
@@ -130,13 +132,13 @@ int rt_hw_i2c_init(void)
         freq = clock_get_frequency(hpm_i2cs[i].clk_name);
         stat = i2c_init_master(hpm_i2cs[i].base, freq, &config);
         if (stat != status_success) {
-            LOG_E("rt i2c device %s init failed", hpm_i2cs[i].device_name);
+            LOG_E("rt i2c device %s init failed", hpm_i2cs[i].bus_name);
         }
 
         hpm_i2cs[i].bus.ops = &hpm_i2c_ops;
         ret = rt_i2c_bus_device_register(&hpm_i2cs[i].bus, hpm_i2cs[i].bus_name);
         if (ret != RT_EOK) {
-            LOG_E("rt i2c device %s register failed, status=%d\n", hpm_i2cs[i].device_name, ret);
+            LOG_E("rt i2c device %s register failed, status=%d\n", hpm_i2cs[i].bus_name, ret);
         }
     }
 
@@ -144,6 +146,7 @@ int rt_hw_i2c_init(void)
 }
 INIT_DEVICE_EXPORT(rt_hw_i2c_init);
 
+#endif /* RT_USING_I2C */
 
 #endif /*BSP_USING_I2C*/
 
