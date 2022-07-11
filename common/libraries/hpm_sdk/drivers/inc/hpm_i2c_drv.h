@@ -267,8 +267,8 @@ static inline void i2c_enable_irq(I2C_Type *ptr, uint32_t mask)
  *
  * @param [in] ptr I2C base address
  * @param [in] enable
- *  @arg true: use 10 bit address mode
- *  @arg false: use 7 bit address mode
+ *  @arg true: enable 10 bit address mode
+ *  @arg false: enable 7 bit address mode
  */
 static inline void i2c_enable_10bit_address_mode(I2C_Type *ptr, bool enable)
 {

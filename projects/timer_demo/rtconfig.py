@@ -31,7 +31,7 @@ else:
 BUILD = 'flash_debug'
 
 if PLATFORM == 'gcc':
-    PREFIX = 'riscv64-unknown-elf-'
+    PREFIX = 'riscv32-unknown-elf-'
     CC = PREFIX + 'gcc'
     CXX = PREFIX + 'g++'
     AS = PREFIX + 'gcc'
@@ -45,10 +45,10 @@ if PLATFORM == 'gcc':
     STRIP = PREFIX + 'strip'
 
     DEVICE = ' -std=gnu11 -DUSE_NONVECTOR_MODE=1'
-    ARCH_ABI = ' -march=rv32imac -mabi=ilp32 -mcmodel=medlow '
+    ARCH_ABI = '   -mcmodel=medlow '
     CFLAGS = DEVICE + ARCH_ABI + ' -ffunction-sections -fdata-sections -fno-common'
     AFLAGS = CFLAGS
-    LFLAGS  = ARCH_ABI + '  --specs=nosys.specs -nostartfiles -Wl,--gc-sections '
+    LFLAGS  = ARCH_ABI + '  --specs=nano.specs -u _printf_float -u _scanf_float --specs=nosys.specs -nostartfiles -Wl,--gc-sections '
 
     CPATH = ''
     LPATH = ''

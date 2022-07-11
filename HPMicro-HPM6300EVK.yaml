@@ -49,7 +49,7 @@ features_zh:
 - '调试接口: 板载FT2232'
 pkg_type: Board_Support_Packages
 pkg_vendor: HPMicro
-pkg_version: 0.6.0
+pkg_version: 0.7.0
 
 template_projects:
 - project_name: blink_led
@@ -81,10 +81,10 @@ template_projects:
     files_and_folders:
     - board
   external_files:
-  - package_name: RISC-V-GCC
+  - package_name: RISC-V-GCC-RV32
     package_type: ToolChain_Support_Packages
     package_vendor: 'RISC-V'
-    package_version: 11.1.0
+    package_version: '2022-04-12'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -126,10 +126,10 @@ example_projects:
     files_and_folders:
     - board
   external_files:
-  - package_name: RISC-V-GCC
+  - package_name: RISC-V-GCC-RV32
     package_type: ToolChain_Support_Packages
     package_vendor: 'RISC-V'
-    package_version: 11.1.0
+    package_version: '2022-04-12'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -170,10 +170,10 @@ example_projects:
     files_and_folders:
     - board
   external_files:
-  - package_name: RISC-V-GCC
+  - package_name: RISC-V-GCC-RV32
     package_type: ToolChain_Support_Packages
     package_vendor: 'RISC-V'
-    package_version: 11.1.0
+    package_version: '2022-04-12'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -214,10 +214,10 @@ example_projects:
     files_and_folders:
     - board
   external_files:
-  - package_name: RISC-V-GCC
+  - package_name: RISC-V-GCC-RV32
     package_type: ToolChain_Support_Packages
     package_vendor: 'RISC-V'
-    package_version: 11.1.0
+    package_version: '2022-04-12'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -258,10 +258,10 @@ example_projects:
     files_and_folders:
     - board
   external_files:
-  - package_name: RISC-V-GCC
+  - package_name: RISC-V-GCC-RV32
     package_type: ToolChain_Support_Packages
     package_vendor: 'RISC-V'
-    package_version: 11.1.0
+    package_version: '2022-04-12'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -302,10 +302,10 @@ example_projects:
     files_and_folders:
     - board
   external_files:
-  - package_name: RISC-V-GCC
+  - package_name: RISC-V-GCC-RV32
     package_type: ToolChain_Support_Packages
     package_vendor: 'RISC-V'
-    package_version: 11.1.0
+    package_version: '2022-04-12'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -346,10 +346,10 @@ example_projects:
     files_and_folders:
     - board
   external_files:
-  - package_name: RISC-V-GCC
+  - package_name: RISC-V-GCC-RV32
     package_type: ToolChain_Support_Packages
     package_vendor: 'RISC-V'
-    package_version: 11.1.0
+    package_version: '2022-04-12'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -390,10 +390,10 @@ example_projects:
     files_and_folders:
     - board
   external_files:
-  - package_name: RISC-V-GCC
+  - package_name: RISC-V-GCC-RV32
     package_type: ToolChain_Support_Packages
     package_vendor: 'RISC-V'
-    package_version: 11.1.0
+    package_version: '2022-04-12'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []

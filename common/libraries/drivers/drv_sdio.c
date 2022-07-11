@@ -2,6 +2,7 @@
  * Copyright (c) 2022 hpmicro
  *
  * SPDX-License-Identifier: BSD-3-Clause
+ *wq
  */
 
 
@@ -183,10 +184,23 @@ static void hpm_sdmmc_request(struct rt_mmcsd_host *host, struct rt_mmcsd_req *r
             sdxc_data.tx_data = NULL;
         }
         xfer.data = &sdxc_data;
+
+
     }
     else
     {
         xfer.data = NULL;
+    }
+
+    if ((req->data->blks > 1) && ((cmd->cmd_code == READ_MULTIPLE_BLOCK) || ((cmd->cmd_code == WRITE_MULTIPLE_BLOCK))))
+    {
+        sdxc_command_t set_block_count_cmd = { 0 };
+        set_block_count_cmd.cmd_index = SET_BLOCK_COUNT;
+        set_block_count_cmd.resp_type = sdxc_dev_resp_r1;
+        set_block_count_cmd.cmd_flags = 0;
+        set_block_count_cmd.cmd_argument = req->data->blks;
+        sdxc_send_command(mmcsd->sdxc_base, &set_block_count_cmd);
+        sdxc_wait_cmd_done(mmcsd->sdxc_base, &set_block_count_cmd, true);
     }
 
     err = sdxc_transfer_blocking(mmcsd->sdxc_base, &adma_config, &xfer);
@@ -251,7 +265,8 @@ static void hpm_sdmmc_request(struct rt_mmcsd_host *host, struct rt_mmcsd_req *r
         aligned_buf = NULL;
     }
 
-    if (req->stop->cmd_code == STOP_TRANSMISSION)
+#if 0
+    if ((req->stop != RT_NULL) && (req->stop->cmd_code == STOP_TRANSMISSION))
     {
         sdxc_cmd.cmd_index = STOP_TRANSMISSION;
         sdxc_cmd.resp_type = sdxc_dev_resp_r1b;
@@ -261,6 +276,7 @@ static void hpm_sdmmc_request(struct rt_mmcsd_host *host, struct rt_mmcsd_req *r
 
         sdxc_wait_cmd_done(mmcsd->sdxc_base, &sdxc_cmd, true);
     }
+#endif
 
     if ((cmd->flags & RESP_MASK) == RESP_R2)
     {
