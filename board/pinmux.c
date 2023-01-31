@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 hpmicro
+ * Copyright (c) 2022 HPMicro
  *
  * SPDX-License-Identifier: BSD-3-Clause
  *
@@ -20,14 +20,17 @@ void init_uart_pins(UART_Type *ptr)
         HPM_IOC->PAD[IOC_PAD_PY07].FUNC_CTL = IOC_PY07_FUNC_CTL_UART0_RXD;
         HPM_IOC->PAD[IOC_PAD_PY06].FUNC_CTL = IOC_PY06_FUNC_CTL_UART0_TXD;
         /* PY port IO needs to configure PIOC */
-        HPM_PIOC->PAD[IOC_PAD_PY07].FUNC_CTL = IOC_PY07_FUNC_CTL_SOC_GPIO_Y_07;
-        HPM_PIOC->PAD[IOC_PAD_PY06].FUNC_CTL = IOC_PY06_FUNC_CTL_SOC_GPIO_Y_06;
+        HPM_PIOC->PAD[IOC_PAD_PY07].FUNC_CTL = IOC_PY07_FUNC_CTL_SOC_PY_07;
+        HPM_PIOC->PAD[IOC_PAD_PY06].FUNC_CTL = IOC_PY06_FUNC_CTL_SOC_PY_06;
     } else if (ptr == HPM_UART1) {
         HPM_IOC->PAD[IOC_PAD_PC24].FUNC_CTL = IOC_PC24_FUNC_CTL_UART1_TXD;
         HPM_IOC->PAD[IOC_PAD_PC25].FUNC_CTL = IOC_PC25_FUNC_CTL_UART1_RXD;
     } else if (ptr == HPM_UART2) {
         HPM_IOC->PAD[IOC_PAD_PC26].FUNC_CTL = IOC_PC26_FUNC_CTL_UART2_TXD;
         HPM_IOC->PAD[IOC_PAD_PC27].FUNC_CTL = IOC_PC27_FUNC_CTL_UART2_RXD;
+    } else if (ptr == HPM_PUART) {
+        HPM_PIOC->PAD[IOC_PAD_PY07].FUNC_CTL = IOC_PY07_FUNC_CTL_PUART_RXD;
+        HPM_PIOC->PAD[IOC_PAD_PY06].FUNC_CTL = IOC_PY06_FUNC_CTL_PUART_TXD;
     }
 }
 
@@ -38,7 +41,8 @@ void init_i2c_pins_as_gpio(I2C_Type *ptr)
         HPM_IOC->PAD[IOC_PAD_PC13].FUNC_CTL = IOC_PC13_FUNC_CTL_GPIO_C_13;
         HPM_IOC->PAD[IOC_PAD_PC14].FUNC_CTL = IOC_PC14_FUNC_CTL_GPIO_C_14;
     } else {
-        while(1);
+        while (1) {
+        }
     }
 }
 
@@ -59,7 +63,8 @@ void init_i2c_pins(I2C_Type *ptr)
         HPM_IOC->PAD[IOC_PAD_PC11].PAD_CTL = IOC_PAD_PAD_CTL_OD_SET(1) | IOC_PAD_PAD_CTL_PE_SET(1) | IOC_PAD_PAD_CTL_PS_SET(1);
         HPM_IOC->PAD[IOC_PAD_PC12].PAD_CTL = IOC_PAD_PAD_CTL_OD_SET(1) | IOC_PAD_PAD_CTL_PE_SET(1) | IOC_PAD_PAD_CTL_PS_SET(1);
     } else {
-        while(1);
+        while (1) {
+        }
     }
 }
 
@@ -119,7 +124,7 @@ void init_gpio_pins(void)
     HPM_IOC->PAD[IOC_PAD_PZ02].FUNC_CTL = IOC_PZ02_FUNC_CTL_GPIO_Z_02;
     HPM_IOC->PAD[IOC_PAD_PZ02].PAD_CTL = pad_ctl;
     /* PZ port IO needs to configure BIOC as well */
-    HPM_BIOC->PAD[IOC_PAD_PZ02].FUNC_CTL = IOC_PZ02_FUNC_CTL_SOC_GPIO_Z_02;
+    HPM_BIOC->PAD[IOC_PAD_PZ02].FUNC_CTL = IOC_PZ02_FUNC_CTL_SOC_PZ_02;
 #endif
 }
 
@@ -231,12 +236,12 @@ void init_can_pins(CAN_Type *ptr)
         HPM_IOC->PAD[IOC_PAD_PZ04].FUNC_CTL = IOC_PZ04_FUNC_CTL_CAN1_TXD;
         HPM_IOC->PAD[IOC_PAD_PZ05].FUNC_CTL = IOC_PZ05_FUNC_CTL_CAN1_RXD;
         /* PZ port IO needs to configure BIOC as well */
-        HPM_BIOC->PAD[IOC_PAD_PZ04].FUNC_CTL = IOC_PZ04_FUNC_CTL_SOC_GPIO_Z_04;
-        HPM_BIOC->PAD[IOC_PAD_PZ05].FUNC_CTL = IOC_PZ05_FUNC_CTL_SOC_GPIO_Z_05;
+        HPM_BIOC->PAD[IOC_PAD_PZ04].FUNC_CTL = IOC_PZ04_FUNC_CTL_SOC_PZ_04;
+        HPM_BIOC->PAD[IOC_PAD_PZ05].FUNC_CTL = IOC_PZ05_FUNC_CTL_SOC_PZ_05;
     }
 }
 
-void init_sdxc_pins(SDXC_Type * ptr, bool use_1v8)
+void init_sdxc_pins(SDXC_Type *ptr, bool use_1v8)
 {
     uint32_t func_ctl = IOC_PAD_FUNC_CTL_ALT_SELECT_SET(17) | IOC_PAD_FUNC_CTL_LOOP_BACK_SET(1);
     uint32_t clk_pad_ctl =  IOC_PAD_PAD_CTL_DS_SET(7);
@@ -270,7 +275,7 @@ void init_sdxc_pins(SDXC_Type * ptr, bool use_1v8)
 
 void init_clk_obs_pins(void)
 {
-    // HPM_IOC->PAD[IOC_PAD_PB02].FUNC_CTL = IOC_PB02_FUNC_CTL_SYSCTL_CLK_OBS_0;
+    /* HPM_IOC->PAD[IOC_PAD_PB02].FUNC_CTL = IOC_PB02_FUNC_CTL_SYSCTL_CLK_OBS_0; */
 }
 
 void init_led_pins(void)

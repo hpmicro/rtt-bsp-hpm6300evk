@@ -17,7 +17,7 @@ menu "On-chip Peripheral Drivers"
         bool "Enable UART"
         default y
         select RT_USING_SERIAL
-        
+
         if BSP_USING_UART
             menuconfig BSP_USING_UART0
                 bool "Enable UART0 (Debugger)"
@@ -96,7 +96,7 @@ menu "On-chip Peripheral Drivers"
                         default 0
                 endif
         endif
-        
+
 
 
     menuconfig BSP_USING_SPI
@@ -120,21 +120,18 @@ menu "On-chip Peripheral Drivers"
        default n
 
     menuconfig BSP_USING_ETH
-       bool "Enable Ethernet"       
-       default n 
-       
+       bool "Enable Ethernet"
+       default n
+
        select RT_USING_ETH
        if BSP_USING_ETH
-       		choice 
-		prompt "ETH"			
+       		choice
+		prompt "ETH"
 	    	config BSP_USING_ETH0
-	        bool "Enable ETH0"	  	
-	    		        	   
-	    	config BSP_USING_ETH1
-	        bool "Enable ETH1"			        	        
-	   	endchoice	
-       endif       
-	    	       	
+	        bool "Enable ETH0"
+	   	endchoice
+       endif
+
     menuconfig BSP_USING_SDXC
         bool "Enable SDXC"
         default n
@@ -143,33 +140,7 @@ menu "On-chip Peripheral Drivers"
             config BSP_USING_SDXC0
                 bool "Enable SDXC0"
                     default n
-
-            config BSP_USING_SDXC1
-                bool "Enable SDXC1"
-                    default y
         endif
-
-    menuconfig BSP_USING_TOUCH
-       bool "Enable touch"
-       default n
-        if BSP_USING_TOUCH
-            config BSP_USING_TOUCH_GT911
-                bool "Enable GT911"
-                    default y
-
-            config BSP_USING_TOUCH_FT5406
-                bool "Enable FT5406"
-                    default n
-        endif
-
-    menuconfig BSP_USING_LCD
-    	bool "Enable LCD"
-    	default n
-
-    menuconfig BSP_USING_LVGL
-        bool "Enable LVGL"
-        default n
-        select PKG_USING_LVGL if BSP_USING_LVGL
 
     menuconfig BSP_USING_GPTMR
 	   	bool "Enable GPTMR"
@@ -202,17 +173,17 @@ menu "On-chip Peripheral Drivers"
                     default n
         endif
 
-    menuconfig BSP_USING_DRAM
+    menuconfig BSP_USING_FEMC
        bool "Enable DRAM"
        default y
     menuconfig INIT_EXT_RAM_FOR_DATA
         bool "INIT_EXT_RAM_FOR_DATA"
         default y
-        
-        
+
+
     menuconfig BSP_USING_XPI_FLASH
     	bool "Enable XPI FLASH"
-	default n 
+	default n
     	select PKG_USING_FAL if BSP_USING_XPI_FLASH
 
     menuconfig BSP_USING_PWM
@@ -226,9 +197,12 @@ menu "On-chip Peripheral Drivers"
        		config BSP_USING_USB_DEVICE
                 bool "Enable USB Device"
                     default n
+            config BSP_USING_USB_HOST
+                bool "Enable USB HOST"
+                    default n
        endif
-       
-     
+
+
      menuconfig BSP_USING_WDG
      	bool "Enable Watchdog"
      	default n
@@ -241,7 +215,7 @@ menu "On-chip Peripheral Drivers"
      			bool "Enable WDG1"
      			default n
      	endif
-     		
+
      menuconfig BSP_USING_CAN
      	bool "Enable CAN"
      	default n
@@ -259,7 +233,7 @@ menu "On-chip Peripheral Drivers"
      	bool "Enable ADC"
      	default n
      	select RT_USING_ADC if BSP_USING_ADC
-     	if BSP_USING_ADC	
+     	if BSP_USING_ADC
             menuconfig BSP_USING_ADC16
             bool "Enable ADC16"
             default y

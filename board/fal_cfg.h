@@ -11,7 +11,7 @@
 #include <rtconfig.h>
 #include <board.h>
 
-#ifdef PKG_USING_FAL
+#ifdef RT_USING_FAL
 #define NOR_FLASH_DEV_NAME             "norflash0"
 #define NOR_FLASH_MEM_BASE             0x80000000UL
 #define NOR_FLASH_SIZE_IN_BYTES        0x1000000UL
@@ -35,6 +35,6 @@ extern struct fal_flash_dev nor_flash0;
     {FAL_PART_MAGIC_WORD,  "download", NOR_FLASH_DEV_NAME,         7*1024*1024, 9*1024*1024,    0}, \
 }
 #endif /* FAL_PART_HAS_TABLE_CFG */
-#endif /* PKG_USING_FAL */
+#endif /* RT_USING_FAL */
 
 #endif /* _FAL_CFG_H_ */

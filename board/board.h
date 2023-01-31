@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 hpmicro
+ * Copyright (c) 2022-2023 HPMicro
  *
  * SPDX-License-Identifier: BSD-3-Clause
  *
@@ -14,7 +14,7 @@
 #include "hpm_soc_feature.h"
 #include "pinmux.h"
 
-#define BOARD_NAME "hpm6360evk"
+#define BOARD_NAME "hpm6300evk"
 #define BOARD_UF2_SIGNATURE (0x0A4D5048UL)
 
 /* dma section */
@@ -80,8 +80,8 @@
 /* sdram section */
 #define BOARD_SDRAM_ADDRESS  (0x40000000UL)
 #define BOARD_SDRAM_SIZE     (32*SIZE_1MB)
-#define BOARD_SDRAM_CS       DRAM_SDRAM_CS0
-#define BOARD_SDRAM_PORT_SIZE DRAM_SDRAM_PORT_SIZE_16_BITS
+#define BOARD_SDRAM_CS       FEMC_SDRAM_CS0
+#define BOARD_SDRAM_PORT_SIZE FEMC_SDRAM_PORT_SIZE_16_BITS
 #define BOARD_SDRAM_REFRESH_COUNT (8192UL)
 #define BOARD_SDRAM_REFRESH_IN_MS (64UL)
 #define BOARD_SDRAM_DATA_WIDTH_IN_BYTE (4UL)
@@ -154,7 +154,7 @@
 /* Flash section */
 #define BOARD_APP_XPI_NOR_XPI_BASE            (HPM_XPI0)
 #define BOARD_APP_XPI_NOR_CFG_OPT_HDR         (0xfcf90001U)
-#define BOARD_APP_XPI_NOR_CFG_OPT_OPT0        (0x00000005U)
+#define BOARD_APP_XPI_NOR_CFG_OPT_OPT0        (0x00000007U)
 #define BOARD_APP_XPI_NOR_CFG_OPT_OPT1        (0x00001000U)
 
 /* i2s section */
@@ -170,6 +170,20 @@
 #define BOARD_ENET_RMII                 HPM_ENET0
 #define BOARD_ENET_RMII_INT_REF_CLK     (1U)
 #define BOARD_ENET_RMII_PTP_CLOCK       (clock_ptp0)
+#define BOARD_ENET0_INF             (0U)  /* 0: RMII, 1: RGMII */
+#define BOARD_ENET0_INT_REF_CLK     (0U)
+#define BOARD_ENET0_PHY_RST_TIME    (30)
+
+
+#if BOARD_ENET0_INF
+#define BOARD_ENET0_TX_DLY          (0U)
+#define BOARD_ENET0_RX_DLY          (0U)
+#endif
+
+#if __USE_ENET_PTP
+#define BOARD_ENET0_PTP_CLOCK       (clock_ptp0)
+#endif
+
 
 /* ADC section */
 #define BOARD_APP_ADC16_NAME "ADC0"
@@ -323,7 +337,7 @@ void board_init_i2c(I2C_Type *ptr);
 
 void board_init_can(CAN_Type *ptr);
 
-uint32_t board_init_dram_clock(void);
+uint32_t board_init_femc_clock(void);
 
 void board_init_sdram_pins(void);
 void board_init_gpio_pins(void);
@@ -361,10 +375,13 @@ void board_init_usb_pins(void);
 void board_usb_vbus_ctrl(uint8_t usb_index, uint8_t level);
 uint8_t board_get_usb_id_status(void);
 
+uint8_t    board_enet_get_dma_pbl(ENET_Type *ptr);
+hpm_stat_t board_reset_enet_phy(ENET_Type *ptr);
 hpm_stat_t board_init_enet_pins(ENET_Type *ptr);
 hpm_stat_t board_init_enet_rmii_reference_clock(ENET_Type *ptr, bool internal);
 hpm_stat_t board_init_enet_ptp_clock(ENET_Type *ptr);
-
+hpm_stat_t board_enet_enable_irq(ENET_Type *ptr);
+hpm_stat_t board_enet_disable_irq(ENET_Type *ptr);
 /*
  * @brief Initialize PMP and PMA for but not limited to the following purposes:
  *      -- non-cacheable memory initialization

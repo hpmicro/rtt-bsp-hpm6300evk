@@ -1,5 +1,22 @@
 # Change Log
 
+## v1.0.0
+- Integrated the SDK v1.0.0 release
+  - Note:
+    - The doc, middleware, cmake, samples foler were removed
+  - Updated:
+    - Improved the drv_uart_v2
+    - Implemented audio driver
+    - Migrated to rt-thread v4.1.0
+    - Added support for JLink Probe
+  - Added examples:
+    - ethernet_demo
+    - ethernet_ptp_master_demo
+    - ethernet_ptp_slave_demo
+    - usb_device_generic_hid
+    - usb_host_msc_udisk
+
+
 ## v0.7.0
 - Integrated the SDK v0.12.1 release
   - Note:

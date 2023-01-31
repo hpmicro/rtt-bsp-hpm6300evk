@@ -91,7 +91,7 @@ void init_common_config(uint32_t adc_base, adc16_conversion_mode_t conv_mode)
     ch_cfg.ch           = ADC_DEV_CHANNEL;
     ch_cfg.sample_cycle = 20;
 
-    adc16_channel_init((ADC16_Type *)adc_base, &ch_cfg);
+    adc16_init_channel((ADC16_Type *)adc_base, &ch_cfg);
 }
 #endif
 
@@ -105,7 +105,7 @@ void init_period_config(uint32_t adc_base)
 #endif
     prd_cfg.ch           = ADC_DEV_CHANNEL;
     prd_cfg.prescale     = 4;
-    prd_cfg.period_in_ms = 100;
+    prd_cfg.period_count = 100;
 #ifdef BSP_USING_ADC12
     adc12_set_prd_config((ADC12_Type *)adc_base, &prd_cfg);
 #endif

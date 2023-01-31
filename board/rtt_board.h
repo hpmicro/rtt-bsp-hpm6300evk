@@ -42,6 +42,9 @@ typedef struct {
     uint8_t drive_strength;
 }sdxc_io_cfg_t;
 
+void app_init_led_pins(void);
+void app_led_write(uint32_t index, bool state);
+
 
 #if defined(__cplusplus)
 extern "C" {

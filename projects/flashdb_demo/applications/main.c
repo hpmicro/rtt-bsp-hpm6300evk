@@ -34,7 +34,7 @@ void test_flash(void);
 
 int main(void)
 {
-#ifdef PKG_USING_FAL
+#ifdef RT_USING_FAL
     fal_init();
 #endif
 

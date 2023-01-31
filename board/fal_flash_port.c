@@ -1,42 +1,35 @@
 /*
- * Copyright (c) 2022 hpmicro
+ * Copyright (c) 2022-2023 HPMicro
  *
  * SPDX-License-Identifier: BSD-3-Clause
+ *
+ * Change Logs:
+ * Date         Author      Notes
+ * 2022-03-09   hpmicro     First implementation
+ * 2022-08-01   hpmicro     Fixed random crashing during kvdb_init
+ * 2022-08-03   hpmicro     Improved erase speed
+ * 2023-01-31   hpmicro     Fix random crashing issue if the global interrupt is always enabled
  *
  */
 #include <rtthread.h>
 #include <rthw.h>
-#ifdef PKG_USING_FAL
+#ifdef RT_USING_FAL
 #include "fal.h"
 #include "hpm_romapi.h"
 #include "board.h"
 #include "hpm_l1c_drv.h"
 
-#if defined(FLASH_XIP) && (FLASH_XIP == 1)
 
 #define FAL_ENTER_CRITICAL() do {\
-        rt_enter_critical();\
-        disable_irq_from_intc();\
-        fencei();\
+        disable_global_irq(CSR_MSTATUS_MIE_MASK);\
     }while(0)
 
 #define FAL_EXIT_CRITICAL() do {\
-        ROM_API_TABLE_ROOT->xpi_driver_if->software_reset(BOARD_APP_XPI_NOR_XPI_BASE);\
-        fencei();\
-        rt_exit_critical();\
-        enable_irq_from_intc();\
+        enable_global_irq(CSR_MSTATUS_MIE_MASK);\
     }while(0)
 
 #define FAL_RAMFUNC __attribute__((section(".isr_vector")))
 
-#else
-#define FAL_ENTER_CRITICAL()
-
-#define FAL_EXIT_CRITICAL()
-
-#define FAL_RAMFUNC
-
-#endif
 
 /***************************************************************************************************
  *      FAL Porting Guide
@@ -90,6 +83,7 @@ FAL_RAMFUNC static int init(void)
     }
     else
     {
+        s_flashcfg.device_info.clk_freq_for_non_read_cmd = 0U;
         /* update the flash chip information */
         uint32_t sector_size;
         rom_xpi_nor_get_property(BOARD_APP_XPI_NOR_XPI_BASE, &s_flashcfg, xpi_nor_property_sector_size, &sector_size);
@@ -116,11 +110,10 @@ FAL_RAMFUNC static int read(long offset, uint8_t *buf, size_t size)
     uint32_t aligned_start = HPM_L1C_CACHELINE_ALIGN_DOWN(flash_addr);
     uint32_t aligned_end = HPM_L1C_CACHELINE_ALIGN_UP(flash_addr + size);
     uint32_t aligned_size = aligned_end - aligned_start;
-
     rt_base_t level = rt_hw_interrupt_disable();
     l1c_dc_invalidate(aligned_start, aligned_size);
     rt_hw_interrupt_enable(level);
-	
+
     (void) rt_memcpy(buf, (void*) flash_addr, size);
 
     return size;
@@ -227,10 +220,24 @@ FAL_RAMFUNC static int erase(long offset, size_t size)
     hpm_stat_t status;
     int ret = (int)size;
 
+    uint32_t block_size;
+    uint32_t sector_size;
+    (void) rom_xpi_nor_get_property(BOARD_APP_XPI_NOR_XPI_BASE, &s_flashcfg, xpi_nor_property_sector_size, &sector_size);
+    (void) rom_xpi_nor_get_property(BOARD_APP_XPI_NOR_XPI_BASE, &s_flashcfg, xpi_nor_property_block_size, &block_size);
+    uint32_t erase_unit;
     while (aligned_size > 0)
     {
         FAL_ENTER_CRITICAL();
-        status = rom_xpi_nor_erase_sector(BOARD_APP_XPI_NOR_XPI_BASE, xpi_xfer_channel_auto, &s_flashcfg, offset);
+        if ((offset % block_size == 0) && (aligned_size >= block_size))
+        {
+            erase_unit = block_size;
+            status = rom_xpi_nor_erase_block(BOARD_APP_XPI_NOR_XPI_BASE, xpi_xfer_channel_auto, &s_flashcfg, offset);
+        }
+        else
+        {
+            erase_unit = sector_size;
+            status = rom_xpi_nor_erase_sector(BOARD_APP_XPI_NOR_XPI_BASE, xpi_xfer_channel_auto, &s_flashcfg, offset);
+        }
         FAL_EXIT_CRITICAL();
 
         if (status != status_success)
@@ -238,10 +245,10 @@ FAL_RAMFUNC static int erase(long offset, size_t size)
             ret = -RT_ERROR;
             break;
         }
-        offset += nor_flash0.blk_size;
-        aligned_size -= nor_flash0.blk_size;
+        offset += erase_unit;
+        aligned_size -= erase_unit;
     }
 
     return ret;
 }
-#endif /* PKG_USING_FAL */
+#endif /* RT_USING_FAL */
