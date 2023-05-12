@@ -1,7 +1,23 @@
 # 更新
 
+## v1.1.0
 
-## 1.0.0
+- 整合了hpm_sdk v1.1.0
+  - 注：
+    - SDK根目录下的docs,middleware,samples, scripts等目录被移除
+- 修复：
+  - drv_i2c.c 中的拼写错误
+  - hw_timer 工作异常
+  - 开启C++支持后RT-Thread Studio工程编译失败
+  - iperf 作为客户端时性能低下
+  - 网络性能未优化
+  - ADC 驱动可能会返回错误的数据
+  - PWM 通道可能会工作不正常
+  - uart_dma_demo示例不工作
+  - eMMC转TF卡不工作
+
+
+## v1.0.0
 - 整合了SDK v1.0.0
   - 注：
     - SDK根目录下的doc, middleware,samples,cmake目录被删除
@@ -18,7 +34,7 @@
   - usb_host_msc_udisk
 
 
-## 0.7.0
+## v0.7.0
 - 整合了SDK v0.12.1
   - 注：
     - SDK根目录下的doc, middleware,samples,cmake 目录被删除

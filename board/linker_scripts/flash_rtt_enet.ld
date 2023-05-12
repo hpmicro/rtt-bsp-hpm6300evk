@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 - 2022 hpmicro
+ * Copyright 2021-2022 HPMicro
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -9,16 +9,16 @@ STACK_SIZE = DEFINED(_stack_size) ? _stack_size : 0x4000;
 HEAP_SIZE = DEFINED(_heap_size) ? _heap_size : 1M;
 FLASH_SIZE = DEFINED(_flash_size) ? _flash_size : 16M;
 SDRAM_SIZE = DEFINED(_sdram_size) ? _sdram_size : 16M;
-NONCACHEABLE_SIZE = DEFINED(_noncacheable_size) ? _noncacheable_size : 1M;
+NONCACHEABLE_SIZE = DEFINED(_noncacheable_size) ? _noncacheable_size : 256K;
 
 MEMORY
 {
     XPI0 (rx) : ORIGIN = 0x80000000, LENGTH = FLASH_SIZE
-    ILM (wx) : ORIGIN = 0, LENGTH = 256K
-    DLM (w) : ORIGIN = 0x80000, LENGTH = 256K
-    AXI_SRAM (wx) : ORIGIN = 0x1080000, LENGTH = 512K
+    ILM (wx) : ORIGIN = 0, LENGTH = 128K
+    DLM (w) : ORIGIN = 0x80000, LENGTH = 128K
+    AXI_SRAM (wx) : ORIGIN = 0x01080000, LENGTH = 256K
     SDRAM (wx) : ORIGIN = 0x40000000, LENGTH = SDRAM_SIZE
-    AXI_SRAM_NONCACHEABLE (wx) : ORIGIN = 0x01100000, LENGTH = NONCACHEABLE_SIZE
+    AXI_SRAM_NONCACHEABLE (wx) : ORIGIN = 0x010C0000, LENGTH = NONCACHEABLE_SIZE
 }
 
 __nor_cfg_option_load_addr__ = ORIGIN(XPI0) + 0x400;
@@ -84,7 +84,11 @@ SECTIONS
         . = ALIGN(8);
         __ramfunc_end__ = .;
     } > AXI_SRAM
-
+	
+	.fast_ram (NOLOAD) : {
+        KEEP(*(.fast_ram))
+    } > DLM
+    
     .text (__vector_load_addr__ + __vector_ram_end__ - __vector_ram_start__) : {
         . = ALIGN(8);
         *(.text)
@@ -182,10 +186,12 @@ SECTIONS
         PROVIDE(__finit_array_end = .);
 
         . = ALIGN(8);
+        PROVIDE(__ctors_start__ = .);
         KEEP(*crtbegin*.o(.ctors))
         KEEP(*(EXCLUDE_FILE (*crtend*.o) .ctors))
         KEEP(*(SORT(.ctors.*)))
         KEEP(*(.ctors))
+        PROVIDE(__ctors_end__ = .);
 
         . = ALIGN(8);
         KEEP(*crtbegin*.o(.dtors))

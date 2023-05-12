@@ -49,7 +49,7 @@ features_zh:
 - '调试接口: 板载FT2232'
 pkg_type: Board_Support_Packages
 pkg_vendor: HPMicro
-pkg_version: 1.0.0
+pkg_version: 1.1.0
 
 template_projects:
 - project_name: blink_led

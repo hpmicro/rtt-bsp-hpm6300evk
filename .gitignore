@@ -1,6 +1,6 @@
 # Prerequisites
 *.d
-
+.sconsign.dblite
 # Object files
 *.o
 *.ko

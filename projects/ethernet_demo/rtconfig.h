@@ -163,6 +163,7 @@
 #define RT_LWIP_TCPTHREAD_PRIORITY 10
 #define RT_LWIP_TCPTHREAD_MBOX_SIZE 8
 #define RT_LWIP_TCPTHREAD_STACKSIZE 4096
+#define LWIP_NO_TX_THREAD
 #define RT_LWIP_ETHTHREAD_PRIORITY 12
 #define RT_LWIP_ETHTHREAD_STACKSIZE 4096
 #define RT_LWIP_ETHTHREAD_MBOX_SIZE 16
@@ -250,10 +251,6 @@
 /* u8g2: a monochrome graphic library */
 
 /* end of u8g2: a monochrome graphic library */
-
-/* PainterEngine: A cross-platform graphics application framework written in C language */
-
-/* end of PainterEngine: A cross-platform graphics application framework written in C language */
 /* end of multimedia packages */
 
 /* tools packages */
@@ -316,49 +313,6 @@
 
 /* end of entertainment: terminal games and other interesting software packages */
 /* end of miscellaneous packages */
-
-/* Arduino libraries */
-
-
-/* Projects */
-
-/* end of Projects */
-
-/* Sensors */
-
-/* end of Sensors */
-
-/* Display */
-
-/* end of Display */
-
-/* Timing */
-
-/* end of Timing */
-
-/* Data Processing */
-
-/* end of Data Processing */
-
-/* Data Storage */
-
-/* Communication */
-
-/* end of Communication */
-
-/* Device Control */
-
-/* end of Device Control */
-
-/* Other */
-
-/* Signal IO */
-
-/* end of Signal IO */
-
-/* Uncategorized */
-
-/* end of Arduino libraries */
 /* end of RT-Thread online packages */
 
 /* Hardware Drivers Config */

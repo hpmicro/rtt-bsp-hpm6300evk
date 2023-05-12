@@ -41,10 +41,10 @@
 #define BOARD_APP_UART_CLK_NAME clock_uart0
 
 #ifndef BOARD_CONSOLE_TYPE
-#define BOARD_CONSOLE_TYPE console_type_uart
+#define BOARD_CONSOLE_TYPE CONSOLE_TYPE_UART
 #endif
 
-#if BOARD_CONSOLE_TYPE == console_type_uart
+#if BOARD_CONSOLE_TYPE == CONSOLE_TYPE_UART
 #ifndef BOARD_CONSOLE_BASE
 #if BOARD_RUNNING_CORE == HPM_CORE0
 #define BOARD_CONSOLE_BASE HPM_UART0
@@ -370,6 +370,7 @@ void board_init_sd_pins(SDXC_Type *ptr);
 uint32_t board_sd_configure_clock(SDXC_Type *ptr, uint32_t freq);
 void board_sd_switch_pins_to_1v8(SDXC_Type *ptr);
 bool board_sd_detect_card(SDXC_Type *ptr);
+void board_sd_power_switch(SDXC_Type *ptr, bool on_off);
 
 void board_init_usb_pins(void);
 void board_usb_vbus_ctrl(uint8_t usb_index, uint8_t level);

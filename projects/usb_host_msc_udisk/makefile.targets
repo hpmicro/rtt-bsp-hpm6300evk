@@ -3,4 +3,4 @@ clean2:
 	-$(RM) $(OBJS) *.elf
 	-@echo ' '
 
-*.elf: $(wildcard ../board/linker_scripts/flash_rtt.ld)
+*.elf: $(wildcard ..D:/RT-ThreadStudio/workspace/usb_host_msc_udisk/board/linker_scripts/flash_rtt.ld)

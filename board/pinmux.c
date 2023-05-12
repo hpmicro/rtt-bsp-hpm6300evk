@@ -241,6 +241,23 @@ void init_can_pins(CAN_Type *ptr)
     }
 }
 
+void init_sdxc_power_pin(SDXC_Type *ptr)
+{
+
+}
+
+void init_sdxc_vsel_pin(SDXC_Type *ptr)
+{
+
+}
+
+void init_sdxc_card_detection_pin(SDXC_Type *ptr)
+{
+     /* SDXC0.CD */
+    HPM_IOC->PAD[IOC_PAD_PA14].FUNC_CTL = IOC_PAD_FUNC_CTL_ALT_SELECT_SET(17) | IOC_PAD_FUNC_CTL_LOOP_BACK_SET(1);
+    HPM_IOC->PAD[IOC_PAD_PA14].PAD_CTL = IOC_PAD_PAD_CTL_DS_SET(7) | IOC_PAD_PAD_CTL_PE_SET(1) | IOC_PAD_PAD_CTL_PS_SET(1);
+}
+
 void init_sdxc_pins(SDXC_Type *ptr, bool use_1v8)
 {
     uint32_t func_ctl = IOC_PAD_FUNC_CTL_ALT_SELECT_SET(17) | IOC_PAD_FUNC_CTL_LOOP_BACK_SET(1);
@@ -254,10 +271,6 @@ void init_sdxc_pins(SDXC_Type *ptr, bool use_1v8)
     /* SDXC0.CMD */
     HPM_IOC->PAD[IOC_PAD_PA10].FUNC_CTL = func_ctl;
     HPM_IOC->PAD[IOC_PAD_PA10].PAD_CTL = pad_ctl;
-
-    /* SDXC0.CD */
-    HPM_IOC->PAD[IOC_PAD_PA14].FUNC_CTL = func_ctl;
-    HPM_IOC->PAD[IOC_PAD_PA14].PAD_CTL = pad_ctl;
 
     /* SDXC0.DATA0 */
     HPM_IOC->PAD[IOC_PAD_PA12].FUNC_CTL = func_ctl;

@@ -1,5 +1,20 @@
 # Change Log
 
+## v1.1.0
+- Integrated hpm_sdk v1.1.0
+  - Note:
+    - the docs, middleware, scripts, samples folder in SDK root directory were removed
+- Fixed:
+  - typos in the drv_i2c.c
+  - hw_timer cannot work due to SDK driver update
+  - RT-Thread Studio project compiling error after enabling C++ support
+  - iperf performance is low if working as client mode
+  - ethernet throughput is not optimized
+  - adc driver may return incorrect value
+  - pwm channel may not work as expected
+  - uart_dma_demo doesn't work
+  - eMMC to TF card doesn't work
+
 ## v1.0.0
 - Integrated the SDK v1.0.0 release
   - Note:

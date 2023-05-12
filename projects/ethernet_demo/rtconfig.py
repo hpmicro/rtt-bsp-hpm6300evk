@@ -71,12 +71,12 @@ if PLATFORM == 'gcc':
         CFLAGS += ' -O1'
         LFLAGS += ' -O1'
         CFLAGS += ' -DFLASH_XIP=1'
-        LINKER_FILE = 'board/linker_scripts/flash_rtt.ld'
+        LINKER_FILE = 'board/linker_scripts/flash_rtt_enet.ld'
     elif BUILD == 'flash_release':
         CFLAGS += ' -O2 -Os'
         LFLAGS += ' -O2 -Os'
         CFLAGS += ' -DFLASH_XIP=1'
-        LINKER_FILE = 'board/linker_scripts/flash_rtt.ld'
+        LINKER_FILE = 'board/linker_scripts/flash_rtt_enet.ld'
     else:
         CFLAGS += ' -O2 -Os'
         LFLAGS += ' -O2 -Os'
@@ -86,8 +86,5 @@ if PLATFORM == 'gcc':
     POST_ACTION = OBJCPY + ' -O binary $TARGET rtthread.bin\n' + SIZE + ' $TARGET \n'
 
     # module setting
-    CXXFLAGS = ' -Woverloaded-virtual -fno-exceptions -fno-rtti '
-    M_CFLAGS = CFLAGS + ' -mlong-calls -fPIC '
-    M_CXXFLAGS = CXXFLAGS + ' -mlong-calls -fPIC'
-    M_LFLAGS = DEVICE + CXXFLAGS + ' -Wl,--gc-sections,-z,max-page-size=0x4' +\
-                                    ' -shared -fPIC -nostartfiles -static-libgcc'
+    CXXFLAGS = CFLAGS  + ' -Woverloaded-virtual -fno-exceptions -fno-rtti '
+    CFLAGS = CFLAGS + '  -std=gnu11'

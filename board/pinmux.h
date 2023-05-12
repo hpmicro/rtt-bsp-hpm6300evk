@@ -1,5 +1,5 @@
 /*
- *Copyright (c) 2022 HPMicro
+ *Copyright (c) 2022-2023 HPMicro
  *
  *SPDX-License-Identifier: BSD-3-Clause
  *
@@ -28,6 +28,9 @@ void init_adc_pins(void);
 void init_dac_pins(DAC_Type *ptr);
 void init_usb_pins(void);
 void init_can_pins(CAN_Type *ptr);
+void init_sdxc_power_pin(SDXC_Type *ptr);
+void init_sdxc_vsel_pin(SDXC_Type *ptr);
+void init_sdxc_card_detection_pin(SDXC_Type *ptr);
 void init_sdxc_pins(SDXC_Type *ptr, bool use_1v8);
 void init_adc_bldc_pins(void);
 void init_rgb_pwm_pins(void);

@@ -104,8 +104,8 @@ void init_period_config(uint32_t adc_base)
     adc16_prd_config_t prd_cfg;
 #endif
     prd_cfg.ch           = ADC_DEV_CHANNEL;
-    prd_cfg.prescale     = 4;
-    prd_cfg.period_count = 100;
+    prd_cfg.prescale     = 22;
+    prd_cfg.period_count = 5;
 #ifdef BSP_USING_ADC12
     adc12_set_prd_config((ADC12_Type *)adc_base, &prd_cfg);
 #endif
@@ -120,7 +120,6 @@ void period_handler(uint32_t adc_base)
     uint32_t vol;
 #ifdef BSP_USING_ADC12
     adc12_get_prd_result((ADC12_Type *)adc_base, ADC_DEV_CHANNEL, &result);
-    result = result >> 4;
 #endif
 #ifdef BSP_USING_ADC16
     adc16_get_prd_result((ADC16_Type *)adc_base, ADC_DEV_CHANNEL, &result);
@@ -171,7 +170,6 @@ void process_seq_data(uint32_t adc_base)
     adc12_trigger_seq_by_sw((ADC12_Type *)adc_base);
     while(!ADC12_INT_STS_SEQ_CMPT_GET(adc12_get_status_flags((ADC12_Type *)adc_base)));
     result = ADC12_BUS_RESULT_CHAN_RESULT_GET(((ADC12_Type *)adc_base)->BUS_RESULT[ADC_DEV_CHANNEL]);
-    result = result >> 4;
 #endif
 #ifdef BSP_USING_ADC16
     adc16_trigger_seq_by_sw((ADC16_Type *)adc_base);
@@ -213,6 +211,7 @@ void thread_entry(void *arg)
         init_common_config((uint32_t)ADC_BASE, adc12_conv_mode_period);
 #endif
         init_period_config((uint32_t)ADC_BASE);
+        rt_thread_mdelay(200);
         period_handler((uint32_t)ADC_BASE);
         rt_adc_disable(adc_dev, ADC_DEV_CHANNEL);
         rt_thread_mdelay(5000);
@@ -224,7 +223,6 @@ void thread_entry(void *arg)
 #endif
         init_sequence_config((uint32_t)ADC_BASE);
         process_seq_data((uint32_t)ADC_BASE);
-        period_handler((uint32_t)ADC_BASE);
         rt_adc_disable(adc_dev, ADC_DEV_CHANNEL);
         rt_thread_mdelay(5000);
     }

@@ -91,7 +91,7 @@ ATTR_PLACE_AT(".uf2_signature") const uint32_t uf2_signature = BOARD_UF2_SIGNATU
 
 void board_init_console(void)
 {
-#if BOARD_CONSOLE_TYPE == console_type_uart
+#if BOARD_CONSOLE_TYPE == CONSOLE_TYPE_UART
     console_config_t cfg;
 
     /* Configure the UART clock to 24MHz */
@@ -350,10 +350,6 @@ void board_init_clock(void)
     clock_add_to_group(clock_gptmr1, 0);
     clock_add_to_group(clock_gptmr2, 0);
     clock_add_to_group(clock_gptmr3, 0);
-    clock_add_to_group(clock_uart0, 0);
-    clock_add_to_group(clock_uart1, 0);
-    clock_add_to_group(clock_uart2, 0);
-    clock_add_to_group(clock_uart3, 0);
     clock_add_to_group(clock_i2c0, 0);
     clock_add_to_group(clock_i2c1, 0);
     clock_add_to_group(clock_i2c2, 0);
@@ -592,6 +588,7 @@ void _init_ext_ram(void)
 void board_init_sd_pins(SDXC_Type *ptr)
 {
     init_sdxc_pins(ptr, false);
+    init_sdxc_card_detection_pin(ptr);
 }
 
 uint32_t board_sd_configure_clock(SDXC_Type *ptr, uint32_t freq)
@@ -639,6 +636,11 @@ uint32_t board_sd_configure_clock(SDXC_Type *ptr, uint32_t freq)
 }
 
 void board_sd_switch_pins_to_1v8(SDXC_Type *ptr)
+{
+    /* This feature is not supported */
+}
+
+void board_sd_power_switch(SDXC_Type *ptr, bool on_off)
 {
     /* This feature is not supported */
 }
@@ -707,12 +709,15 @@ uint32_t board_init_uart_clock(UART_Type *ptr)
     uint32_t freq = 0U;
     if (ptr == HPM_UART0) {
         clock_set_source_divider(clock_uart0, clk_src_osc24m, 1);
+        clock_add_to_group(clock_uart0, 0);
         freq = clock_get_frequency(clock_uart0);
     } else if (ptr == HPM_UART1) {
         clock_set_source_divider(clock_uart1, clk_src_osc24m, 1);
+        clock_add_to_group(clock_uart1, 0);
         freq = clock_get_frequency(clock_uart1);
     } else if (ptr == HPM_UART2) {
         clock_set_source_divider(clock_uart2, clk_src_osc24m, 1);
+        clock_add_to_group(clock_uart2, 0);
         freq = clock_get_frequency(clock_uart2);
     } else {
         /* Not supported */
