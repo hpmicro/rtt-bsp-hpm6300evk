@@ -33,7 +33,7 @@
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.gdbServerConnectionAddress" value=""/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.gdbServerDebugInterface" value="jtag"/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.gdbServerDeviceEndianness" value="little"/>
-<stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.gdbServerDeviceName" value="HPM6340XPAX"/>
+<stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.gdbServerDeviceName" value="HPM6360xPAx"/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.gdbServerDeviceSpeed" value="auto"/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.gdbServerExecutable" value="${debugger_install_path}/${jlink_debugger_relative_path}\JLinkGDBServerCL.exe"/>
 <intAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.gdbServerGdbPortNumber" value="2331"/>

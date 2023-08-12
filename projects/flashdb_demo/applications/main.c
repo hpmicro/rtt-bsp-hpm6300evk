@@ -1,9 +1,10 @@
 /*
- * Copyright (c) 2021 hpmicro
+ * Copyright (c) 2021-2023 HPMicro
  *
  * Change Logs:
  * Date         Author          Notes
- * 2021-08-13   Fan YANG        first version
+ * 2021-08-13   hpmicro         first version
+ * 2023-08-01   hpmicro         Optimize logic for rt-thread v5.0.1
  *
  */
 
@@ -21,6 +22,8 @@
 #endif
 
 
+void flashdb_init(void);
+
 void thread_entry(void *arg);
 
 #ifdef FDB_USING_KVDB
@@ -30,34 +33,12 @@ static struct fdb_default_kv_node default_kv_table[] = {{"boot_count", &boot_cou
 extern void kvdb_basic_sample(fdb_kvdb_t kvdb);
 #endif
 
-void test_flash(void);
-
 int main(void)
 {
-#ifdef RT_USING_FAL
-    fal_init();
-#endif
-
-#ifdef FDB_USING_KVDB
-    fdb_err_t fdb_err;
-    struct fdb_default_kv default_kv;
-    default_kv.kvs = default_kv_table;
-    default_kv.num = sizeof(default_kv_table) / sizeof(default_kv_table[0]);
-
-    fdb_err = fdb_kvdb_init(&s_kvdb, "env", "download", &default_kv, NULL);
-    if (fdb_err != FDB_NO_ERR) {
-        rt_kprintf("FlashDB initialization failed, error_code=%d\n", fdb_err);
-        return -fdb_err;
-    }
-    else
-    {
-        kvdb_basic_sample(&s_kvdb);
-    }
-
-#endif
-
     rt_thread_t led_thread = rt_thread_create("led_th", thread_entry, NULL, 1024, 1, 10);
     rt_thread_startup(led_thread);
+
+    flashdb_init();
 
     return 0;
 }
@@ -73,5 +54,28 @@ void thread_entry(void *arg)
         rt_pin_write(APP_LED0_PIN_NUM, APP_LED_OFF);
         rt_thread_mdelay(200);
     }
+}
 
+void flashdb_init(void)
+{
+#ifdef RT_USING_FAL
+    fal_init();
+#endif
+
+#ifdef FDB_USING_KVDB
+    fdb_err_t fdb_err;
+    struct fdb_default_kv default_kv;
+    default_kv.kvs = default_kv_table;
+    default_kv.num = sizeof(default_kv_table) / sizeof(default_kv_table[0]);
+
+    fdb_err = fdb_kvdb_init(&s_kvdb, "env", "flashdb", &default_kv, NULL);
+    if (fdb_err != FDB_NO_ERR) {
+        rt_kprintf("FlashDB initialization failed, error_code=%d\n", fdb_err);
+    }
+    else
+    {
+        kvdb_basic_sample(&s_kvdb);
+    }
+
+#endif
 }

@@ -106,7 +106,7 @@ menu "On-chip Peripheral Drivers"
         if BSP_USING_SPI
             config BSP_USING_SPI1
                 bool "Enable SPI1"
-                    default y
+                    default n
             config BSP_USING_SPI2
                 bool "Enable SPI2"
                     default n

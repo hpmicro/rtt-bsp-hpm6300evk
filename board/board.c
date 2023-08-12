@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 HPMicro
+ * Copyright (c) 2022-2023 HPMicro
  * SPDX-License-Identifier: BSD-3-Clause
  *
  */
@@ -415,7 +415,7 @@ void board_init_clock(void)
     clock_set_source_divider(clock_aud1, clk_src_pll2_clk0, 46); /* config clock_aud1 for 44100*n sample rate */
 }
 
-uint32_t board_init_adc12_clock(ADC16_Type *ptr)
+uint32_t board_init_adc16_clock(ADC16_Type *ptr)
 {
     uint32_t freq = 0;
     switch ((uint32_t) ptr) {
@@ -460,10 +460,6 @@ uint32_t board_init_i2s_clock(I2S_Type *ptr)
     return 0;
 }
 
-uint32_t board_init_adc16_clock(ADC16_Type *ptr)
-{
-    return 0;
-}
 
 uint32_t board_init_dac_clock(DAC_Type *ptr, bool clk_src_ahb)
 {
