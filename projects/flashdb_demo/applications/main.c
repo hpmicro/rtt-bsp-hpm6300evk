@@ -13,7 +13,7 @@
 #include "rtt_board.h"
 #include <drv_gpio.h>
 #include "hpm_romapi.h"
-#ifdef PKG_USING_FAL
+#ifdef RT_USING_FAL
 #include "fal.h"
 #endif
 
@@ -46,12 +46,16 @@ int main(void)
 
 void thread_entry(void *arg)
 {
-	rt_pin_mode(APP_LED0_PIN_NUM, PIN_MODE_OUTPUT);
+    app_init_led_pins();
 
     while(1){
-        rt_pin_write(APP_LED0_PIN_NUM, APP_LED_ON);
+        app_led_write(0, APP_LED_ON);
+        app_led_write(1, APP_LED_ON);
+        app_led_write(2, APP_LED_ON);
         rt_thread_mdelay(200);
-        rt_pin_write(APP_LED0_PIN_NUM, APP_LED_OFF);
+        app_led_write(0, APP_LED_OFF);
+        app_led_write(1, APP_LED_OFF);
+        app_led_write(2, APP_LED_OFF);
         rt_thread_mdelay(200);
     }
 }

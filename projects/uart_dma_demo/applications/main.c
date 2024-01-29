@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 HPMicro
+ * Copyright (c) 2021 hpmicro
  *
  * Change Logs:
  * Date         Author          Notes
@@ -22,8 +22,6 @@ void thread_entry(void *arg);
 
 #include <rtthread.h>
 #include <rtdevice.h>
-
-#define SAMPLE_UART_NAME       "uart2"      /* 串口设备名称 */
 
 /* 串口接收消息结构 */
 struct rx_msg
@@ -60,7 +58,7 @@ static void serial_thread_entry(void *parameter)
     struct rx_msg msg;
     rt_err_t result;
     rt_uint32_t rx_length;
-    __attribute__((section(".noncacheable"), aligned(4))) static char rx_buffer[BSP_UART2_RX_BUFSIZE];
+    __attribute__((section(".noncacheable"), aligned(4))) static char rx_buffer[BOARD_UART_RX_BUFFER_SIZE];
 
     while (1)
     {
@@ -98,7 +96,7 @@ static int uart_dma_sample(int argc, char *argv[])
     }
     else
     {
-        rt_strncpy(uart_name, SAMPLE_UART_NAME, RT_NAME_MAX);
+        rt_strncpy(uart_name, BOARD_UART_NAME, RT_NAME_MAX);
     }
 
     /* 查找串口设备 */
@@ -143,6 +141,8 @@ MSH_CMD_EXPORT(uart_dma_sample, uart device dma sample);
 
 int main(void)
 {
+    app_init_led_pins();
+
     static uint32_t led_thread_arg = 0;
     rt_thread_t led_thread = rt_thread_create("led_th", thread_entry, &led_thread_arg, 1024, 1, 10);
     rt_thread_startup(led_thread);
@@ -152,12 +152,19 @@ int main(void)
 
 void thread_entry(void *arg)
 {
-    rt_pin_mode(APP_LED0_PIN_NUM, PIN_MODE_OUTPUT);
-
     while(1){
-        rt_pin_write(APP_LED0_PIN_NUM, APP_LED_ON);
+
+        app_led_write(0, APP_LED_ON);
         rt_thread_mdelay(500);
-        rt_pin_write(APP_LED0_PIN_NUM, APP_LED_OFF);
+        app_led_write(0, APP_LED_OFF);
+        rt_thread_mdelay(500);
+        app_led_write(1, APP_LED_ON);
+        rt_thread_mdelay(500);
+        app_led_write(1, APP_LED_OFF);
+        rt_thread_mdelay(500);
+        app_led_write(2, APP_LED_ON);
+        rt_thread_mdelay(500);
+        app_led_write(2, APP_LED_OFF);
         rt_thread_mdelay(500);
     }
 }

@@ -24,6 +24,12 @@
 /* CAN section */
 #define BOARD_CAN_NAME                        "can0"
 
+/* UART section */
+#define BOARD_UART_NAME                        "uart2"
+#define BOARD_UART_RX_BUFFER_SIZE              BSP_UART2_RX_BUFSIZE
+
+#define BOARD_SD_NAME                          "sd0"
+
 /***************************************************************
  *
  * RT-Thread related definitions

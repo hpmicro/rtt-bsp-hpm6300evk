@@ -20,7 +20,7 @@
 void thread_entry(void *arg);
 
 #define ADC_DEV_NAME        "adc0"
-#define ADC_DEV_CHANNEL     13
+#define ADC_DEV_CHANNEL     11
 #define REFER_VOLTAGE       330 /*3.3v*/
 #ifdef BSP_USING_ADC16
 #define CONVERT_BITS        (1 << 16) /*16 bit*/

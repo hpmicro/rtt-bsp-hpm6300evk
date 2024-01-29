@@ -593,13 +593,7 @@ void _init_ext_ram(void)
 }
 
 
-void board_init_sd_pins(SDXC_Type *ptr)
-{
-    init_sdxc_pins(ptr, false);
-    init_sdxc_card_detection_pin(ptr);
-}
-
-uint32_t board_sd_configure_clock(SDXC_Type *ptr, uint32_t freq)
+uint32_t board_sd_configure_clock(SDXC_Type *ptr, uint32_t freq, bool need_inverse)
 {
     uint32_t actual_freq = 0;
     do {
@@ -636,6 +630,7 @@ uint32_t board_sd_configure_clock(SDXC_Type *ptr, uint32_t freq)
         else {
             sdxc_set_clock_divider(ptr, 8);
         }
+        sdxc_enable_inverse_clock(ptr, need_inverse);
         sdxc_enable_sd_clock(ptr, true);
         actual_freq = clock_get_frequency(sdxc_clk) / sdxc_get_clock_divider(ptr);
     } while (false);
@@ -643,19 +638,9 @@ uint32_t board_sd_configure_clock(SDXC_Type *ptr, uint32_t freq)
     return actual_freq;
 }
 
-void board_sd_switch_pins_to_1v8(SDXC_Type *ptr)
-{
-    /* This feature is not supported */
-}
-
 void board_sd_power_switch(SDXC_Type *ptr, bool on_off)
 {
     /* This feature is not supported */
-}
-
-bool board_sd_detect_card(SDXC_Type *ptr)
-{
-    return sdxc_is_card_inserted(ptr);
 }
 
 hpm_stat_t board_init_enet_ptp_clock(ENET_Type *ptr)
@@ -733,7 +718,7 @@ uint32_t board_init_uart_clock(UART_Type *ptr)
     return freq;
 }
 
-uint8_t board_enet_get_dma_pbl(ENET_Type *ptr)
+uint8_t board_get_enet_dma_pbl(ENET_Type *ptr)
 {
     return enet_pbl_16;
 }

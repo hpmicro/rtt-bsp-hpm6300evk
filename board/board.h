@@ -366,17 +366,14 @@ uint32_t board_init_i2s_clock(I2S_Type *ptr);
 uint32_t board_init_pdm_clock(void);
 uint32_t board_init_dao_clock(void);
 
-void board_init_sd_pins(SDXC_Type *ptr);
-uint32_t board_sd_configure_clock(SDXC_Type *ptr, uint32_t freq);
-void board_sd_switch_pins_to_1v8(SDXC_Type *ptr);
-bool board_sd_detect_card(SDXC_Type *ptr);
+uint32_t board_sd_configure_clock(SDXC_Type *ptr, uint32_t freq, bool need_inverse);
 void board_sd_power_switch(SDXC_Type *ptr, bool on_off);
 
 void board_init_usb_pins(void);
 void board_usb_vbus_ctrl(uint8_t usb_index, uint8_t level);
 uint8_t board_get_usb_id_status(void);
 
-uint8_t    board_enet_get_dma_pbl(ENET_Type *ptr);
+uint8_t    board_get_enet_dma_pbl(ENET_Type *ptr);
 hpm_stat_t board_reset_enet_phy(ENET_Type *ptr);
 hpm_stat_t board_init_enet_pins(ENET_Type *ptr);
 hpm_stat_t board_init_enet_rmii_reference_clock(ENET_Type *ptr, bool internal);

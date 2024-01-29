@@ -23,8 +23,9 @@
 
 /* kservice optimization */
 
-#define RT_PRINTF_LONGLONG
-#define RT_DEBUG
+#define RT_USING_DEBUG
+#define RT_DEBUGING_COLOR
+#define RT_DEBUGING_CONTEXT
 
 /* Inter-Thread communication */
 
@@ -47,7 +48,7 @@
 #define RT_USING_CONSOLE
 #define RT_CONSOLEBUF_SIZE 128
 #define RT_CONSOLE_DEVICE_NAME "uart0"
-#define RT_VER_NUM 0x40100
+#define RT_VER_NUM 0x50002
 
 /* RT-Thread Components */
 
@@ -68,10 +69,15 @@
 #define MSH_USING_BUILT_IN_COMMANDS
 #define FINSH_USING_DESCRIPTION
 #define FINSH_ARG_MAX 10
+#define FINSH_USING_OPTION_COMPLETION
+
+/* DFS: device virtual file system */
+
 
 /* Device Drivers */
 
 #define RT_USING_DEVICE_IPC
+#define RT_UNAMED_PIPE_NUMBER 64
 #define RT_USING_SERIAL
 #define RT_USING_SERIAL_V2
 #define RT_SERIAL_USING_DMA
@@ -84,7 +90,14 @@
 
 /* C/C++ and POSIX layer */
 
-#define RT_LIBC_DEFAULT_TIMEZONE 8
+/* ISO-ANSI C layer */
+
+/* Timezone and Daylight Saving Time */
+
+#define RT_LIBC_USING_LIGHT_TZ_DST
+#define RT_LIBC_TZ_DEFAULT_HOUR 8
+#define RT_LIBC_TZ_DEFAULT_MIN 0
+#define RT_LIBC_TZ_DEFAULT_SEC 0
 
 /* POSIX (Portable Operating System Interface) layer */
 
@@ -114,6 +127,15 @@
 /* Wiced WiFi */
 
 
+/* CYW43012 WiFi */
+
+
+/* BL808 WiFi */
+
+
+/* CYW43439 WiFi */
+
+
 /* IoT Cloud */
 
 
@@ -136,9 +158,6 @@
 /* u8g2: a monochrome graphic library */
 
 
-/* PainterEngine: A cross-platform graphics application framework written in C language */
-
-
 /* tools packages */
 
 
@@ -158,11 +177,19 @@
 
 /* peripheral libraries and drivers */
 
+/* sensors drivers */
+
+
+/* touch drivers */
+
 
 /* Kendryte SDK */
 
 
 /* AI packages */
+
+
+/* Signal Processing and Control Algorithm Packages */
 
 
 /* miscellaneous packages */
@@ -175,6 +202,40 @@
 /* entertainment: terminal games and other interesting software packages */
 
 
+/* Arduino libraries */
+
+
+/* Projects and Demos */
+
+
+/* Sensors */
+
+
+/* Display */
+
+
+/* Timing */
+
+
+/* Data Processing */
+
+
+/* Data Storage */
+
+/* Communication */
+
+
+/* Device Control */
+
+
+/* Other */
+
+
+/* Signal IO */
+
+
+/* Uncategorized */
+
 /* Hardware Drivers Config */
 
 #define SOC_HPM6000
@@ -184,16 +245,11 @@
 #define BSP_USING_GPIO
 #define BSP_USING_UART
 #define BSP_USING_UART0
-#define BSP_UART0_RX_DMA_CHANNEL 0
-#define BSP_UART0_TX_DMA_CHANNEL 1
 #define BSP_UART0_RX_BUFSIZE 128
 #define BSP_UART0_TX_BUFSIZE 0
 #define BSP_USING_UART2
-#define BSP_UART2_RX_USING_DMA
-#define BSP_UART2_RX_DMA_CHANNEL 0
-#define BSP_UART2_TX_DMA_CHANNEL 1
-#define BSP_UART2_RX_BUFSIZE 128
-#define BSP_UART2_TX_BUFSIZE 0
+#define BSP_UART2_RX_BUFSIZE 1024
+#define BSP_UART2_TX_BUFSIZE 64
 #define BSP_USING_SPI
 #define BSP_USING_SPI1
 #define BSP_USING_RTC
