@@ -15,4 +15,3 @@ RT-Thread Studio BSP for HPM6300EVK Board
 - uart_dma_demo
 - usb_device_generic_hid
 - usb_host_msc_udisk
-- webnet_demo
