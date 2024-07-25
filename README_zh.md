@@ -5,6 +5,7 @@ HPM6300EVK 开发板的 RT-Thread Studio 板级支持包
 ## 支持的示例
 ***
 - adc_example
+- airoc_wifi_demo
 - blink_led
 - can_example
 - ethernet_demo

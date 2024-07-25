@@ -4,6 +4,7 @@ RT-Thread Studio BSP for HPM6300EVK Board
 ## Supported examples
 ***
 - adc_example
+- airoc_wifi_demo
 - blink_led
 - can_example
 - ethernet_demo

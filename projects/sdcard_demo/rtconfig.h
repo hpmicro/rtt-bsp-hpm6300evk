@@ -23,6 +23,9 @@
 /* kservice optimization */
 
 /* end of kservice optimization */
+#define RT_USING_DEBUG
+#define RT_DEBUGING_COLOR
+#define RT_DEBUGING_CONTEXT
 
 /* Inter-Thread communication */
 
@@ -108,12 +111,14 @@
 #define RT_USING_SERIAL_V2
 #define RT_SERIAL_USING_DMA
 #define RT_USING_PIN
+#define RT_USING_RTC
 #define RT_USING_SDIO
 #define RT_SDIO_STACK_SIZE 1024
 #define RT_SDIO_THREAD_PRIORITY 15
 #define RT_MMCSD_STACK_SIZE 2048
 #define RT_MMCSD_THREAD_PREORITY 22
 #define RT_MMCSD_MAX_PARTITION 16
+#define RT_SDIO_DEBUG
 
 /* Using USB */
 
@@ -238,6 +243,21 @@
 
 /* peripheral libraries and drivers */
 
+/* HAL & SDK Drivers */
+
+/* STM32 HAL & SDK Drivers */
+
+/* end of STM32 HAL & SDK Drivers */
+
+/* Infineon HAL Packages */
+
+/* end of Infineon HAL Packages */
+
+/* Kendryte SDK */
+
+/* end of Kendryte SDK */
+/* end of HAL & SDK Drivers */
+
 /* sensors drivers */
 
 /* end of sensors drivers */
@@ -245,10 +265,6 @@
 /* touch drivers */
 
 /* end of touch drivers */
-
-/* Kendryte SDK */
-
-/* end of Kendryte SDK */
 /* end of peripheral libraries and drivers */
 
 /* AI packages */
@@ -334,9 +350,20 @@
 #define BSP_USING_RTC
 #define BSP_USING_SDXC
 #define BSP_USING_SDXC0
+#define BSP_SDXC0_BUS_WIDTH_4BIT
+#define BSP_SDXC0_VOLTAGE_3V3
+#define BSP_SDXC0_PWR_PIN "None"
 #define BSP_USING_FEMC
 #define INIT_EXT_RAM_FOR_DATA
 /* end of On-chip Peripheral Drivers */
+
+/* Segger SystemView Config */
+
+/* end of Segger SystemView Config */
+
+/* Hpmicro Interrupt Config */
+
+/* end of Hpmicro Interrupt Config */
 /* end of Hardware Drivers Config */
 
 #endif

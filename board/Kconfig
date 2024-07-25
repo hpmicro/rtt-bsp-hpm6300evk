@@ -83,24 +83,48 @@ menu "On-chip Peripheral Drivers"
                 default y
                 if BSP_USING_SPI1
                     config BSP_SPI1_USING_DMA
-                    bool "Enable SPI1 DMA"
-                    default n
+                        bool "Enable SPI1 DMA"
+                        default n
+                    choice
+                        prompt "Select SPI1 CS TYPE"
+                        default BSP_SPI1_USING_SOFT_CS
+                        config BSP_SPI1_USING_SOFT_CS
+                            bool "Enable SPI1 software cs"
+                        config BSP_SPI1_USING_HARD_CS
+                            bool "Enable SPI1 hardware cs"
+                    endchoice
                 endif
             config BSP_USING_SPI2
                 bool "Enable SPI2"
                 default n
                 if BSP_USING_SPI2
                     config BSP_SPI2_USING_DMA
-                    bool "Enable SPI2 DMA"
-                    default n
+                        bool "Enable SPI2 DMA"
+                        default n
+                    choice
+                        prompt "Select SPI2 CS TYPE"
+                        default BSP_SPI2_USING_SOFT_CS
+                        config BSP_SPI2_USING_SOFT_CS
+                            bool "Enable SPI2 software cs"
+                        config BSP_SPI2_USING_HARD_CS
+                            bool "Enable SPI2 hardware cs"
+                    endchoice
                 endif
             config BSP_USING_SPI3
                 bool "Enable SPI3"
                 default n
                 if BSP_USING_SPI3
                     config BSP_SPI3_USING_DMA
-                    bool "Enable SPI3 DMA"
-                    default n
+                        bool "Enable SPI3 DMA"
+                        default n
+                    choice
+                        prompt "Select SPI3 CS TYPE"
+                        default BSP_SPI3_USING_SOFT_CS
+                        config BSP_SPI3_USING_SOFT_CS
+                            bool "Enable SPI3 software cs"
+                        config BSP_SPI3_USING_HARD_CS
+                            bool "Enable SPI3 hardware cs"
+                    endchoice
                 endif
         endif
 
@@ -129,6 +153,25 @@ menu "On-chip Peripheral Drivers"
             config BSP_USING_SDXC0
                 bool "Enable SDXC0"
                 default n
+            if BSP_USING_SDXC0
+                choice
+                    prompt "Select BUS_WIDTH"
+                    default BSP_SDXC0_BUS_WIDTH_4BIT
+                    config BSP_SDXC0_BUS_WIDTH_1BIT
+                        bool "1-bit"
+                    config BSP_SDXC0_BUS_WIDTH_4BIT
+                        bool "4-bit"
+                endchoice
+                choice
+                    prompt "Select Voltage"
+                    default BSP_SDXC0_VOLTAGE_3V3
+                    config BSP_SDXC0_VOLTAGE_3V3
+                        bool "3.3V"
+                endchoice
+                config BSP_SDXC0_PWR_PIN
+                    default "None"
+                    string "PWR pin name"
+            endif
         endif
 
     menuconfig BSP_USING_GPTMR
