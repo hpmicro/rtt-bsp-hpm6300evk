@@ -204,18 +204,20 @@
 #define RT_LWIP_TCP
 #define RT_LWIP_RAW
 #define RT_MEMP_NUM_NETCONN 8
-#define RT_LWIP_PBUF_NUM 32
+#define RT_LWIP_PBUF_NUM 48
 #define RT_LWIP_RAW_PCB_NUM 4
 #define RT_LWIP_UDP_PCB_NUM 4
 #define RT_LWIP_TCP_PCB_NUM 4
-#define RT_LWIP_TCP_SEG_NUM 64
-#define RT_LWIP_TCP_SND_BUF 16384
-#define RT_LWIP_TCP_WND 16384
+#define RT_LWIP_TCP_SEG_NUM 96
+#define RT_LWIP_TCP_SND_BUF 32768
+#define RT_LWIP_TCP_WND 32768
 #define RT_LWIP_TCPTHREAD_PRIORITY 10
 #define RT_LWIP_TCPTHREAD_MBOX_SIZE 8
 #define RT_LWIP_TCPTHREAD_STACKSIZE 4096
+#define LWIP_NO_RX_THREAD
+#define LWIP_NO_TX_THREAD
 #define RT_LWIP_ETHTHREAD_PRIORITY 12
-#define RT_LWIP_ETHTHREAD_STACKSIZE 2048
+#define RT_LWIP_ETHTHREAD_STACKSIZE 4096
 #define RT_LWIP_ETHTHREAD_MBOX_SIZE 8
 #define LWIP_NETIF_STATUS_CALLBACK 1
 #define LWIP_NETIF_LINK_CALLBACK 1
@@ -248,7 +250,9 @@
 #define CYBSP_OOB_INTR_PRIORITY 2
 #define CY_WIFI_USING_THREAD_INIT
 #define CY_WIFI_INIT_THREAD_STACK_SIZE 2048
-#define PKG_USING_WIFI_HOST_DRIVER_V100
+#define CY_WIFI_LOG_LEVEL_INFO
+#define PKG_USING_WIFI_HOST_DRIVER_V121
+#define PKG_WIFI_HOST_DRIVER_VER_NUM 0x10201
 
 /* Wi-Fi */
 
@@ -282,8 +286,8 @@
 #define NETUTILS_NTP_HOSTNAME "cn.ntp.org.cn"
 #define NETUTILS_NTP_HOSTNAME2 "ntp.rt-thread.org"
 #define NETUTILS_NTP_HOSTNAME3 "edu.ntp.org.cn"
-#define PKG_USING_NETUTILS_LATEST_VERSION
-#define PKG_NETUTILS_VER_NUM 0x99999
+#define PKG_USING_NETUTILS_V133
+#define PKG_NETUTILS_VER_NUM 0x10303
 
 /* IoT Cloud */
 
@@ -354,6 +358,14 @@
 /* Kendryte SDK */
 
 /* end of Kendryte SDK */
+
+/* WCH HAL & SDK Drivers */
+
+/* end of WCH HAL & SDK Drivers */
+
+/* AT32 HAL & SDK Drivers */
+
+/* end of AT32 HAL & SDK Drivers */
 /* end of HAL & SDK Drivers */
 
 /* sensors drivers */
@@ -441,18 +453,27 @@
 /* On-chip Peripheral Drivers */
 
 #define BSP_USING_GPIO
+#define BSP_GPIO_IRQ_PRIORITY 1
 #define BSP_USING_UART
 #define BSP_USING_UART0
 #define BSP_UART0_RX_BUFSIZE 128
 #define BSP_UART0_TX_BUFSIZE 0
+#define BSP_UART0_IRQ_PRIORITY 1
 #define BSP_USING_UART2
 #define BSP_UART2_RX_BUFSIZE 128
 #define BSP_UART2_TX_BUFSIZE 0
+#define BSP_UART2_IRQ_PRIORITY 1
 #define BSP_USING_RTC
 #define BSP_USING_SDXC
 #define BSP_USING_SDXC0
+#define BSP_SDXC0_ENABLE_INTERRUPT_DRIVEN
+#define BSP_SDXC0_USE_NONCACHEABLE_BUFFER
+#define BSP_SDXC0_NONCACHEABLE_BUFFER_SIZE_IN_SECTOR 32
+#define BSP_SDXC0_NONCACHEABLE_BUF_IN_FAST_RAM
+#define BSP_SDXC0_IRQ_PRIORITY 1
 #define BSP_SDXC0_BUS_WIDTH_4BIT
 #define BSP_SDXC0_VOLTAGE_3V3
+#define BSP_SDXC0_VSEL_PIN "None"
 #define BSP_SDXC0_PWR_PIN "None"
 #define BSP_USING_FEMC
 #define INIT_EXT_RAM_FOR_DATA
@@ -462,9 +483,9 @@
 
 /* end of Segger SystemView Config */
 
-/* Hpmicro Interrupt Config */
+/* HPMicro Interrupt Config */
 
-/* end of Hpmicro Interrupt Config */
+/* end of HPMicro Interrupt Config */
 /* end of Hardware Drivers Config */
 
 #endif

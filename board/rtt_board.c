@@ -20,8 +20,18 @@
 
 extern int rt_hw_uart_init(void);
 
+void rtt_os_tick_clock(void)
+{
+#ifdef HPM_USING_VECTOR_PREEMPTED_MODE
+    clock_add_to_group(BOARD_OS_TIMER_CLK_NAME, 0);
+#else
+    clock_add_to_group(clock_mchtmr0, 0);
+#endif
+}
+
 void rtt_board_init(void)
 {
+    rtt_os_tick_clock();
     board_init_clock();
     board_init_console();
     board_init_pmp();
@@ -76,7 +86,7 @@ void rt_hw_console_output(const char *str)
 
 void app_init_usb_pins(void)
 {
-    board_init_usb_pins();
+    board_init_usb(HPM_USB0);
 }
 
 void rt_hw_cpu_reset(void)
@@ -103,4 +113,66 @@ void rt_hw_cpu_dcache_ops(int ops, void *addr, int size)
     }
 }
 #endif
+
+uint32_t rtt_board_init_adc16_clock(ADC16_Type *ptr, bool clk_src_ahb)
+{
+    uint32_t freq = 0;
+
+    if (ptr == HPM_ADC0) {
+        if (clk_src_ahb) {
+            /* Configure the ADC clock from AHB (@160MHz by default)*/
+            clock_set_adc_source(clock_adc0, clk_adc_src_ahb0);
+        } else {
+            /* Configure the ADC clock from pll0_clk1 divided by 2 (@166MHz by default) */
+            clock_set_adc_source(clock_adc0, clk_adc_src_ana0);
+            clock_set_source_divider(clock_ana0, clk_src_pll0_clk1, 2U);
+        }
+        clock_add_to_group(clock_adc0, 0);
+        freq = clock_get_frequency(clock_adc0);
+    } else if (ptr == HPM_ADC1) {
+        if (clk_src_ahb) {
+            /* Configure the ADC clock from AHB (@160MHz by default)*/
+            clock_set_adc_source(clock_adc1, clk_adc_src_ahb0);
+        } else {
+            /* Configure the ADC clock from pll1_clk1 divided by 2 (@166MHz by default) */
+            clock_set_adc_source(clock_adc1, clk_adc_src_ana1);
+            clock_set_source_divider(clock_ana1, clk_src_pll0_clk1, 2U);
+        }
+        clock_add_to_group(clock_adc1, 0);
+        freq = clock_get_frequency(clock_adc1);
+    } else if (ptr == HPM_ADC2) {
+        if (clk_src_ahb) {
+            /* Configure the ADC clock from AHB (@160MHz by default)*/
+            clock_set_adc_source(clock_adc2, clk_adc_src_ahb0);
+        } else {
+            /* Configure the ADC clock from pll1_clk1 divided by 2 (@166MHz by default) */
+            clock_set_adc_source(clock_adc2, clk_adc_src_ana2);
+            clock_set_source_divider(clock_ana2, clk_src_pll0_clk1, 2U);
+        }
+        clock_add_to_group(clock_adc2, 0);
+        freq = clock_get_frequency(clock_adc2);
+    }
+
+    return freq;
+}
+
+uint32_t rtt_board_init_i2s_clock(I2S_Type *ptr)
+{
+    if (ptr == HPM_I2S0) {
+        clock_add_to_group(clock_i2s0, 0);
+        return clock_get_frequency(clock_i2s0);
+    } else if (ptr == HPM_I2S1) {
+        clock_add_to_group(clock_i2s1, 0);
+        return clock_get_frequency(clock_i2s1);
+    } else {
+        return 0;
+    }
+}
+
+uint32_t rtt_board_init_pwm_clock(PWM_Type *ptr)
+{
+    uint32_t freq = 0;
+    (void) ptr;
+    return freq;
+}
 

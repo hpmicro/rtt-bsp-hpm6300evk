@@ -3,10 +3,12 @@
 本示例演示了基于英飞凌AIROC™ WiFi+Bluetooch® Combo系列的 WiFi基本测试
 
 ## 如何配置WiFi-Host-Driver
+
 打开 `RT-Thread Settings`, 在右上角搜索`WiFi Host Driver(WHD)`, 在下拉框中选择所需要的`WiFi Host Driver(WHD) for RT-Thread`, 按作者给的介绍 __**[链接](https://github.com/Evlers/rt-thread_wifi-host-driver/blob/master/README_CN.md)**__ 来配置。
 
 __测试过的WiFi模块列表__：
-- CYWL6208 (WiFi芯片:CYW43438), 联系方式：新联鑫威（杭州）科技有限公司 (xlx@xlxwlan.com)
+
+- CYWL6208 (WiFi芯片:CYW43438), 联系方式：新联鑫威（杭州）科技有限公司 (<xlx@xlxwlan.com>)
 
 __注意事项__：
 
@@ -21,9 +23,8 @@ __注意事项__：
       - 请和板子上相应的GPIO相连，并将GPIO引脚的名称填入该选项，如`PC06`(位于J28-40)
     5. 其他配置请保持默认值
 
-
-
 ## 支持的命令
+
 ```shell
 RT-Thread shell commands:
 ifconfig         - list the information of all network interfaces
@@ -59,9 +60,12 @@ reset            - reset the board
 ```
 
 ## 完整的测试步骤
+
 - 连接WiFi:
+
 ```shell
 wifi scan
 wifi join <ssid> <password>
 ```
+
 当完成WiFi连接后，用户可以测试`ping`, `iperf`等命令

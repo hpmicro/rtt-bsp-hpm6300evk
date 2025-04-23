@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 HPMicro
+ * Copyright 2021-2025 HPMicro
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -18,7 +18,6 @@ MEMORY
     NONCACHEABLE_RAM (wx) : ORIGIN = 0x40000000 + SDRAM_SIZE - NONCACHEABLE_SIZE, LENGTH = NONCACHEABLE_SIZE
     SDRAM (wx) : ORIGIN = 0x40000000, LENGTH = SDRAM_SIZE - NONCACHEABLE_SIZE
     AHB_SRAM (w) : ORIGIN = 0xF0300000, LENGTH = 32k
-    APB_SRAM (w): ORIGIN = 0xF40F0000, LENGTH = 8k
 }
 
 SECTIONS
@@ -169,10 +168,10 @@ SECTIONS
         PROVIDE(__init_array_end = .);
 
         . = ALIGN(8);
-        PROVIDE(__finit_array_start = .);
-        KEEP(*(SORT_BY_INIT_PRIORITY(.finit_array.*)))
-        KEEP(*(.finit_array))
-        PROVIDE(__finit_array_end = .);
+        PROVIDE(__fini_array_start = .);
+        KEEP(*(SORT_BY_INIT_PRIORITY(.fini_array.*)))
+        KEEP(*(.fini_array))
+        PROVIDE(__fini_array_end = .);
 
         . = ALIGN(8);
         PROVIDE(__ctors_start__ = .);
@@ -214,8 +213,11 @@ SECTIONS
     .noncacheable.bss (NOLOAD) : {
         . = ALIGN(8);
         KEEP(*(.noncacheable))
+        KEEP(*(.noncacheable.non_init))
+        KEEP(*(.noncacheable.non_init.*))
         __noncacheable_bss_start__ = .;
         KEEP(*(.noncacheable.bss))
+        KEEP(*(.noncacheable.bss.*))
         __noncacheable_bss_end__ = .;
         . = ALIGN(8);
     } > NONCACHEABLE_RAM
@@ -226,10 +228,6 @@ SECTIONS
      .ahb_sram (NOLOAD) : {
         KEEP(*(.ahb_sram))
     } > AHB_SRAM
-
-    .apb_sram (NOLOAD) : {
-        KEEP(*(.backup_sram))
-    } > APB_SRAM
 
     .stack(NOLOAD) : {
         . = ALIGN(8);
