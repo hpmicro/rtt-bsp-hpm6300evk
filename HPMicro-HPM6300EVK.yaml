@@ -50,7 +50,7 @@ features_zh:
 
 pkg_type: Board_Support_Packages
 pkg_vendor: HPMicro
-pkg_version: 1.9.0
+pkg_version: 1.10.0
 
 template_projects:
 - project_name: blink_led
@@ -61,10 +61,12 @@ template_projects:
     target_path_offset: ''
     files_and_folders:
     - .config
+    - .config.old
     - .cproject
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - README.md
     - rtconfig.h
@@ -72,7 +74,7 @@ template_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -94,14 +96,14 @@ template_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -115,10 +117,12 @@ example_projects:
     target_path_offset: ''
     files_and_folders:
     - .config
+    - .config.old
     - .cproject
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - packages
     - README.md
@@ -127,7 +131,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -149,14 +153,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -173,6 +177,7 @@ example_projects:
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - makefile.targets
     - packages
@@ -182,7 +187,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -204,14 +209,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -223,10 +228,12 @@ example_projects:
     target_path_offset: ''
     files_and_folders:
     - .config
+    - .config.old
     - .cproject
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - README.md
     - rtconfig.h
@@ -234,7 +241,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -256,14 +263,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -275,10 +282,12 @@ example_projects:
     target_path_offset: ''
     files_and_folders:
     - .config
+    - .config.old
     - .cproject
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - README.md
     - rtconfig.h
@@ -286,7 +295,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -308,14 +317,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -332,6 +341,7 @@ example_projects:
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - packages
     - README.md
@@ -340,7 +350,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -362,14 +372,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -386,6 +396,7 @@ example_projects:
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - packages
     - README.md
@@ -394,7 +405,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -416,14 +427,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -440,6 +451,7 @@ example_projects:
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - packages
     - README.md
@@ -448,7 +460,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -470,14 +482,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -489,10 +501,12 @@ example_projects:
     target_path_offset: ''
     files_and_folders:
     - .config
+    - .config.old
     - .cproject
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - packages
     - README.md
@@ -501,7 +515,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -523,14 +537,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -547,6 +561,7 @@ example_projects:
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - README.md
     - rtconfig.h
@@ -554,7 +569,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -576,14 +591,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -595,10 +610,12 @@ example_projects:
     target_path_offset: ''
     files_and_folders:
     - .config
+    - .config.old
     - .cproject
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - README.md
     - rtconfig.h
@@ -606,7 +623,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -628,14 +645,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -652,6 +669,7 @@ example_projects:
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - README.md
     - rtconfig.h
@@ -659,7 +677,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -681,14 +699,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -705,6 +723,7 @@ example_projects:
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - packages
     - README.md
@@ -713,7 +732,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -735,14 +754,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
@@ -759,6 +778,7 @@ example_projects:
     - .project
     - .settings
     - applications
+    - bsp_utils.py
     - Kconfig
     - packages
     - README.md
@@ -767,7 +787,7 @@ example_projects:
     - rtconfig_preinc.h
     - SConscript
     - SConstruct
-    - tools
+    - template.emProject
   - source_path_offset: 'common'
     target_path_offset: ''
     files_and_folders:
@@ -789,14 +809,14 @@ example_projects:
   - package_name: OpenOCD-HPMicro
     package_type: Debugger_Support_Packages
     package_vendor: HPMicro
-    package_version: '0.4.0'
+    package_version: '0.5.0'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []
   - package_name: J-Link
     package_type: Debugger_Support_Packages
     package_vendor: SEGGER
-    package_version: 'v8.24'
+    package_version: 'v8.48'
     source_path_offset: ''
     target_path_offset: ''
     files_and_folders: []

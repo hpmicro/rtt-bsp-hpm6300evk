@@ -23,7 +23,9 @@
 /* kservice optimization */
 
 /* end of kservice optimization */
-#define RT_DEBUG
+#define RT_USING_DEBUG
+#define RT_DEBUGING_COLOR
+#define RT_DEBUGING_CONTEXT
 
 /* Inter-Thread communication */
 
@@ -49,7 +51,7 @@
 #define RT_CONSOLEBUF_SIZE 128
 #define RT_CONSOLE_DEVICE_NAME "uart0"
 /* end of Kernel Device Object */
-#define RT_VER_NUM 0x50001
+#define RT_VER_NUM 0x50002
 /* end of RT-Thread Kernel */
 
 /* RT-Thread Components */
@@ -71,6 +73,7 @@
 #define MSH_USING_BUILT_IN_COMMANDS
 #define FINSH_USING_DESCRIPTION
 #define FINSH_ARG_MAX 10
+#define FINSH_USING_OPTION_COMPLETION
 
 /* DFS: device virtual file system */
 
@@ -95,7 +98,16 @@
 
 /* C/C++ and POSIX layer */
 
-#define RT_LIBC_DEFAULT_TIMEZONE 8
+/* ISO-ANSI C layer */
+
+/* Timezone and Daylight Saving Time */
+
+#define RT_LIBC_USING_LIGHT_TZ_DST
+#define RT_LIBC_TZ_DEFAULT_HOUR 8
+#define RT_LIBC_TZ_DEFAULT_MIN 0
+#define RT_LIBC_TZ_DEFAULT_SEC 0
+/* end of Timezone and Daylight Saving Time */
+/* end of ISO-ANSI C layer */
 
 /* POSIX (Portable Operating System Interface) layer */
 
@@ -132,6 +144,18 @@
 /* Wiced WiFi */
 
 /* end of Wiced WiFi */
+
+/* CYW43012 WiFi */
+
+/* end of CYW43012 WiFi */
+
+/* BL808 WiFi */
+
+/* end of BL808 WiFi */
+
+/* CYW43439 WiFi */
+
+/* end of CYW43439 WiFi */
 /* end of Wi-Fi */
 
 /* IoT Cloud */
@@ -190,6 +214,45 @@
 
 /* peripheral libraries and drivers */
 
+/* HAL & SDK Drivers */
+
+/* STM32 HAL & SDK Drivers */
+
+/* end of STM32 HAL & SDK Drivers */
+
+/* Infineon HAL Packages */
+
+/* end of Infineon HAL Packages */
+
+/* Kendryte SDK */
+
+/* end of Kendryte SDK */
+
+/* WCH HAL & SDK Drivers */
+
+/* end of WCH HAL & SDK Drivers */
+
+/* AT32 HAL & SDK Drivers */
+
+/* end of AT32 HAL & SDK Drivers */
+
+/* HC32 DDL Drivers */
+
+/* end of HC32 DDL Drivers */
+
+/* NXP HAL & SDK Drivers */
+
+/* end of NXP HAL & SDK Drivers */
+
+/* NUVOTON Drivers */
+
+/* end of NUVOTON Drivers */
+
+/* GD32 Drivers */
+
+/* end of GD32 Drivers */
+/* end of HAL & SDK Drivers */
+
 /* sensors drivers */
 
 /* end of sensors drivers */
@@ -197,10 +260,6 @@
 /* touch drivers */
 
 /* end of touch drivers */
-
-/* Kendryte SDK */
-
-/* end of Kendryte SDK */
 /* end of peripheral libraries and drivers */
 
 /* AI packages */
@@ -279,14 +338,17 @@
 /* On-chip Peripheral Drivers */
 
 #define BSP_USING_GPIO
+#define BSP_GPIO_IRQ_PRIORITY 1
 #define BSP_USING_UART
 #define BSP_USING_UART0
-#define BSP_UART0_RX_DMA_CHANNEL 0
-#define BSP_UART0_TX_DMA_CHANNEL 1
 #define BSP_UART0_RX_BUFSIZE 128
 #define BSP_UART0_TX_BUFSIZE 0
+#define BSP_UART0_IRQ_PRIORITY 1
 #define BSP_USING_SPI
 #define BSP_USING_SPI1
+#define BSP_SPI1_IRQ_PRIORITY 1
+#define BSP_SPI1_USING_SOFT_CS
+#define BSP_SPI1_USING_SINGLE_IO
 #define BSP_USING_RTC
 #define BSP_USING_FEMC
 #define INIT_EXT_RAM_FOR_DATA
@@ -294,6 +356,14 @@
 #define BSP_USING_ADC16
 #define BSP_USING_ADC0
 /* end of On-chip Peripheral Drivers */
+
+/* Segger SystemView Config */
+
+/* end of Segger SystemView Config */
+
+/* HPMicro Interrupt Config */
+
+/* end of HPMicro Interrupt Config */
 /* end of Hardware Drivers Config */
 
 #endif
