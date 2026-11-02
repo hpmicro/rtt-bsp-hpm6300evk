@@ -4,7 +4,7 @@
 
 ## 分区
 
-本例程将FLASH分为4个分区：
+本例程将Flash分为4个分区：
 
 - app
 - easyflash
@@ -105,6 +105,7 @@ reset            - reset the board
 fal probe easyflash
 fal bench 4096 yes
 ```
+注意：由于代码本身放在`app`区域，在`flash_debug`和`flash_release`的构建工程中请不要使用`fal bench`功能。
 
 - kvdb 用于测试 `Key-Value Database` 的功能。例如：
 

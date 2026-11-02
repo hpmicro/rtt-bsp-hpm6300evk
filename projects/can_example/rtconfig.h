@@ -143,13 +143,11 @@
 #define RT_SERIAL_BUF_STRATEGY_OVERWRITE
 #define RT_SERIAL_USING_DMA
 #define RT_USING_CAN
+#define RT_CAN_USING_CANFD
 #define RT_CANMSG_BOX_SZ 16
 #define RT_CANSND_BOX_NUM 1
 #define RT_CANSND_MSG_TIMEOUT 100
 #define RT_CAN_NB_TX_FIFO_SIZE 256
-#define RT_USING_RTC
-#define RT_USING_SPI
-#define RT_USING_SPI_ISR
 #define RT_USING_PIN
 /* end of Device Drivers */
 
@@ -293,6 +291,10 @@
 
 /* end of Kendryte SDK */
 
+/* MM32 HAL & SDK Drivers */
+
+/* end of MM32 HAL & SDK Drivers */
+
 /* WCH HAL & SDK Drivers */
 
 /* end of WCH HAL & SDK Drivers */
@@ -320,6 +322,22 @@
 /* HPMicro SDK */
 
 /* end of HPMicro SDK */
+
+/* FM33 Drivers */
+
+/* end of FM33 Drivers */
+
+/* FT32 HAL & SDK Drivers */
+
+/* end of FT32 HAL & SDK Drivers */
+
+/* NOVOSNS Drivers */
+
+/* end of NOVOSNS Drivers */
+
+/* N32 Drivers */
+
+/* end of N32 Drivers */
 /* end of HAL & SDK Drivers */
 
 /* sensors drivers */
@@ -413,12 +431,6 @@
 #define BSP_UART0_RX_BUFSIZE 128
 #define BSP_UART0_TX_BUFSIZE 0
 #define BSP_UART0_IRQ_PRIORITY 1
-#define BSP_USING_SPI
-#define BSP_USING_SPI1
-#define BSP_SPI1_IRQ_PRIORITY 1
-#define BSP_SPI1_USING_SOFT_CS
-#define BSP_SPI1_USING_SINGLE_IO
-#define BSP_USING_RTC
 #define BSP_USING_FEMC
 #define INIT_EXT_RAM_FOR_DATA
 #define BSP_USING_CAN
